@@ -1,0 +1,12 @@
+{
+    "name": "wgt-frontend",
+    "version": "0.0.1",
+    "appPath": "src/main/webapp",
+    "dependencies": {
+        "jquery": "2.0.3",
+        "jQuery-ajaxTransport-XDomainRequest": "1.0.3",
+        "bootstrap": "3.3.1",
+        "angular": "1.4.2",
+        "angular-translate": "2.8.1"
+    }
+}
