@@ -1,0 +1,80 @@
+
+
+.logo-small() {
+  background-image: data-uri('../img/logo.tn-19x21.png');
+}
+#logo {
+  &.ga-logo-de {
+    background-image: data-uri('../img/logo.tn.de.png');
+  }
+  &.ga-logo-fr {
+    background-image: data-uri('../img/logo.tn.fr.png');
+  }
+  &.ga-logo-it {
+    background-image: data-uri('../img/logo.tn.it.png');
+  }
+  &.ga-logo-rm {
+    background-image: data-uri('../img/logo.tn.rm.png');
+  }
+  &.ga-logo-en {
+    background-image: data-uri('../img/logo.tn.en.png');
+  }
+  &[class^="ga-logo-"],
+  &[class*=" ga-logo-"] {
+    @media (max-width: @screen-tablet),
+    (max-height: @screen-sm-max-height) {
+      .logo-small();
+    }
+  }
+}
+.embed {
+  #bigMapLink {
+    .ga-logo {
+      .logo-small();
+    }
+  }
+}
+
+.icon-16px {
+  background-position: center center;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  border: 0 none;
+  height: 16px;
+  width: 16px;
+}
+
+.icon-show {
+    background-image: url("../img/icons/show.png");
+}
+
+.icon-hide {
+    background-image: url("../img/icons/hide.png");
+}
+
+.icon-recycle-bin {
+    background-image: url("../img/icons/recycle-bin.png");
+}
+
+.cover-backgroud-image {
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% auto !important;
+}
+
+.ga-search-results {
+  max-height: 200px;
+}
+
+.theme-toggle {
+  .dropdown-menu {
+    @media (min-height: @screen-sm-max-height) and (max-height: 700px) and (min-width: 910px) {
+      top: 0px;
+    }
+  }
+}
+
+.dropdown-menu {
+  z-index: 2000 !important;
+}

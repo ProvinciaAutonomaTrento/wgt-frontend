@@ -1,0 +1,8 @@
+<div class="ga-topic-item"
+     ng-repeat="topic in topics"
+     ng-click="setActiveTopic(topic)"
+     ng-class="{'ga-topic-active': topic == activeTopic}"
+     data-original-title="{{topic.tooltip}}">
+  <div>{{topic.label}}</div>
+  <div class="ga-topics-sprite cover-backgroud-image" ng-style="topic.img && {'background-image': 'url(' + topic.imgLink + ')'}"></div>
+</div>

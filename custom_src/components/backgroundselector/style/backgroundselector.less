@@ -1,0 +1,50 @@
+[ga-background-selector] {
+  &.ga-bg-mobile {
+    .ga-bg-layer-bt {
+      background-image: data-uri('background-selector-black.png');
+    }
+    .ga-bg-highlight {
+      background-color: white;
+      border: 3px solid red !important;
+      border-radius: 21px;
+    }
+  }
+  &.ga-bg-desktop {
+    .ga-bg-highlight {
+      background-color: white;
+      border: 3px solid red !important;
+    }
+    .ga-bg-layer-bt {
+      border: 3px solid white;
+      width: 96px;
+      height: 64px;
+      bottom: 52px;
+      right: 10px;
+      background: #ffffff data-uri('default_layer_backgroud.png') no-repeat center;
+      @media (max-width: @screen-tablet) {
+        width: 48px;
+        height: 32px;
+        bottom: 24px;
+        background-size: 44px 28px;
+      }
+    }
+    .ga-bg-layer {
+      width: 96px;
+      height: 64px;
+      bottom: 52px;
+      right: 10px;
+      background-color: rgba(255, 255, 255, 1);
+      border: 3px solid white;
+      &:hover {
+        background-color: white;
+        border: 3px solid red !important;
+      }
+      @media (max-width: @screen-tablet) {
+        width: 48px;
+        height: 32px;
+        bottom: 24px;
+        background-size: 44px 28px;
+      }
+    }
+  }
+}

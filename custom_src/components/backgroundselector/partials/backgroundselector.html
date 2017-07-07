@@ -1,0 +1,11 @@
+<div ng-repeat="layer in backgroundLayers"
+     ng-click="activateBackgroundLayer(layer)"
+     class="ga-bg-layer {{getClass(layer, $index)}} cover-backgroud-image"
+     ng-style="!isBackgroundSelectorClosed && {position: absolute, right: ((110 * ($index + 1)) + 'px'), 'background-image': 'url(' + layer.backgroundImage + ')'}">
+  <div ng-if="::desktop" class="ga-bg-layer-text" translate>{{layer.label}}</div>
+</div>
+<div ng-click="toggleMenu()" class="ga-bg-layer-bt cover-backgroud-image"
+     ng-style="currentLayer.backgroundImage && {'background-image': 'url(' + currentLayer.backgroundImage + ')'}">
+  <div ng-if="::desktop" class="ga-bg-layer-bt-text" translate>bg_chooser_label</div>
+  <i ng-if="::desktop" class="icon-chevron-sign-right"></i>
+</div>
