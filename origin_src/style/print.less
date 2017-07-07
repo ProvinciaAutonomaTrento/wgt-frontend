@@ -1,0 +1,74 @@
+@media print {
+  // ****** PRINT GENERAL SETTINGS
+
+  body {
+    overflow: visible!important;
+  }
+
+  .popover {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+
+  #header {
+    background-color: transparent;
+    box-shadow: none !important;
+    height: 110px;
+  }
+
+  button, [ga-geolocation], [ga-seo],
+  #pulldown, #search-container, #mouseposition,
+  #feedback, #feedback-success, #feedback-error,
+  #import-wms-popup, #import-kml-popup, #draw-popup, #featuretree-popup,
+  #header form, #footer a, .alert, #toptools, [ga-background-selector],
+  [ga-time-selector] {
+    display: none !important;
+  }
+
+  #measure-popup[style] {
+    page-break-before: always;
+    position: relative !important;
+    left: 0px !important;
+    top: 0px !important;
+    height: 500px;
+  }
+
+  // ****** PRINT POPUP CONTENT SETTINGS
+  .htmlpopup-container, .legend-container {
+    a[href]:after {
+      content: " (" attr(href) ")";
+    }
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+      content: "";
+    }
+  }
+
+  // ****** PRINT MAP SETTINGS
+  [ga-map] {
+    border: 1px solid lightgray;
+  }
+
+  .embed [ga-map] {
+    width: initial !important;
+    top: initial !important;
+    height: initial !important;
+  }
+
+  // ****** PRINT PROFILE SETTINGS
+  [ga-profile] {
+    margin-top: 15px;
+  }
+
+  .ga-profile-tooltip {
+    display: none;
+  }
+
+  [ga-profile] .profile-inner .profile-svg .profile-area {
+     fill-opacity: 0;
+     stroke: #000;
+     stroke-width: 2;
+  }
+}

@@ -1,0 +1,25 @@
+<div class="ga-catalogitem-template" ng-switch="item.children">
+
+  <div ng-switch-when="undefined" class="ga-catalogitem-leaf ga-catalogitem-entry"
+       ng-class="{'ga-catalogitem-selected': item.selectedOpen}">
+    <label title="{{item.label}}" class="ga-truncate-text ga-checkbox">
+      <input type="checkbox" ng-model="item.selectedOpen" ng-change="toggleLayer()"/>
+      <span></span>
+      {{item.label}}
+    </label>
+    <button class="ga-icon ga-btn icon-info-sign" ng-click="getLegend($event, item.layerBodId)"></button>
+  </div>
+
+  <div ng-switch-default="" class="ga-catalogitem-node">
+    <a href="#" ng-click="toggle($event)" class="ga-catalogitem-entry ga-truncate-text" title="{{item.label}}">
+      <i ng-class="{'icon-minus': item.selectedOpen, 'icon-plus': !item.selectedOpen}"></i>
+      {{item.label}}
+    </a>
+    <ul ng-if="item.selectedOpen">
+      <li ng-repeat="child in item.children">
+        <div ga-catalogitem ga-catalogitem-item="child" ga-catalogitem-map="map" ga-catalogitem-options="options"></div>
+      </li>
+    </ul>
+  </div>
+
+</div>

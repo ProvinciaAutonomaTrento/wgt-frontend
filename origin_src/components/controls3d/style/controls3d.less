@@ -1,0 +1,154 @@
+[ga-controls3d] {
+  .user-select(none);
+  position: absolute;
+  text-align: center;
+  right: 0;
+  left: 0;
+  bottom: unit(@bt-bottom, px);
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  z-index: 600;
+  @media (max-width: @screen-tablet) {
+    bottom: unit(@bt-bottom-sm, px);
+    width: 120px;
+    height: 44px;
+  }
+  button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+  }
+  .ga-tilt, .ga-rotate {
+    display: inline-block;
+    text-align: center;
+    border-radius: 37px;
+    background-color: rgba(255,255,255,0.5);
+    height: 110px;
+    width: 74px;
+    padding-top: 5px;
+    @media (max-width: @screen-tablet) {
+      background: none;
+      width: 50px;
+      height: auto;
+      padding: 0;
+    }
+    .ga-indicator {
+      width: 64px;
+      height: 64px;
+      .transition(none);
+
+      @media (max-width: @screen-tablet) {
+        width: 44px;
+        height: 44px;
+      }
+    }
+    .ga-inc, .ga-dec {
+      display: inline-block;
+      width: 32px;
+      height: 30px;
+      @media (max-width: @screen-tablet) {
+        display: none;
+      }
+    }
+    .ga-inc {
+      background-image: data-uri('left_arrow_red.png');
+    }
+    .ga-dec {
+      background-image: data-uri('right_arrow_red.png');
+    }
+  }
+  .ga-tilt .ga-indicator {
+    background-image: data-uri('icon_left_tilt.png');
+    @media (max-width: @screen-tablet) {
+      background-image: data-uri('icon_left_tilt_mobile.png');
+    }
+  }
+  .ga-rotate .ga-indicator {
+    background-image: data-uri('icon_right_roll.png');
+    @media (max-width: @screen-tablet) {
+      background-image: data-uri('icon_right_roll_mobile.png');
+    }
+  }
+  .ga-pegman-help {
+    position: fixed;
+    bottom: 30px;
+    left: 2px;
+    width: 380px;
+    font-size: 11px;
+    text-align: left;
+    padding: 7px;
+    .box-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+  }
+  .ga-pegman {
+    background-image: data-uri('pegman_standing_white.png');
+    cursor: grab;
+    cursor: -webkit-grab;
+    display: inline-block;
+    width: 27px;
+    height: 72px;
+    @media (max-width: @screen-tablet) {
+      background-image: data-uri('pegman_standing_white_mobile.png');
+      width:18px;
+      height:47px;
+    }
+    &.ga-fly-mode {
+      background-image: data-uri('super_pegman_white.png');
+      width: 78px;
+      height: 100px;
+      @media (max-width: @screen-tablet) {
+         background-image: data-uri('super_pegman_white_mobile.png');
+         width: 49px;
+         height: 65px;
+      }
+    }
+    &.ga-jet-mode {
+      background-image: data-uri('fa18.png');
+      width: 100px;
+      height: 38px;
+      @media (max-width: @screen-tablet) {
+         background-image: data-uri('fa18_mobile.png');
+         width: 66px;
+         height: 25px;
+      }
+    }
+  }
+
+  [ga-help] {
+     position: absolute;
+     width: 38px;
+     height: 28px;
+     top: 18px;
+     right: -14px;
+     margin: auto;
+     font-size: 2em;
+ 
+     button.ga-icon {
+       font-size: inherit;
+     }
+
+     @media (max-width: @screen-tablet) {
+      top: 8px;
+      font-size: 1.5em;
+      width: 20px;
+     }
+   }
+
+   &:hover {
+     [ga-help] {
+       opacity: 1;
+     }
+   }
+}
+
+.ga-pegman-dragging {
+  cursor: crosshair;
+  .ga-pegman {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+  }
+}

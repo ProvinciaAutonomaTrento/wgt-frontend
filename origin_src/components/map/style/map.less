@@ -1,0 +1,32 @@
+[ga-map] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #f9f9f9;
+  background-image: data-uri('mapbg.png');
+  
+  .ol-viewport .ol-unselectable {
+    .ga-user-select(none);
+  }
+  
+  .ol-dragbox {
+    border: 3px solid blue;
+  }
+
+  .ol-dragzoom {
+    border: 2px solid red;
+  }
+  
+  .ol-zoom-in, .ol-zoom-out button  { 
+    display: block; /*without this, chrome add 3 pixels between zoomin/out buttons*/
+  }
+
+  .ol-zoom-in {
+    background-image: data-uri('zoomIn.png');
+  }
+  
+  .ol-zoom-out {
+    background-image: data-uri('zoomOut.png');
+  }
+}
+

@@ -1,0 +1,249 @@
+[ga-layermanager] {
+  padding: 0 !important;
+
+  li {
+    border-bottom: #e9e9e9 1px solid;
+    height: 6em;
+    padding: 0;
+    overflow: hidden;
+    .transition(height .35s ease);
+  }
+
+  li, li > div {
+    position: relative;
+  }
+
+  select {
+    display: inline;
+    width: 5.5em;
+    padding: 0;
+  }
+ 
+  .ga-layer-infos label, input, select, options {
+    cursor: pointer;
+
+    &:hover {
+      color: #666;
+    }
+  }
+
+  label {
+    padding: 4px 0px 4px 2.2em;
+    margin: 0;
+    font-weight: normal;
+    height: inherit;
+    line-height: 2.4em;
+  }
+
+  button {
+    top: 0;
+    height: 100%;
+  }
+
+  input[type=range] {
+    width: 6em;
+    padding: 0px;
+    height: 14px;
+    vertical-align: middle;
+ 
+    &::-ms-track {
+      height: 4px;
+      color: transparent;
+      background: linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+    }
+ 
+    &::-ms-fill-lower, &::-ms-fill-upper {
+      background: none;
+    }
+
+    &::-ms-thumb {
+      border: 1px solid black;
+      border-radius: 5px;
+      height: 12px;
+      background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%);
+    } 
+  }
+ 
+  .ga-layer-infos {
+    width: 100%;
+    z-index: 1;
+    background-color: #fff;
+
+    button {
+      position: absolute;
+    }
+
+    label {
+      width: 100%;
+      padding-left: 2.1em;
+      padding-right: 2.1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @media (max-width: @screen-tablet), (max-height: @screen-sm-max-height) {
+        padding-left: 2.8em;
+      }
+    }
+
+    .ga-layer-time {
+      position: absolute;
+      width: 4em;
+      height: 1.7em;
+      top: 0px;
+      right: 2.7em;
+      margin: 0.6em 0;
+
+      select, button {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+        line-height: 1.6em;
+      }
+
+      select {
+        width: 110%; /* 10% more for the Android tablet */
+        opacity: 0;
+      }
+    }
+    
+    .icon-user {
+      display: none;
+      color: red;
+    }
+  }
+
+  .ga-layer-warning {
+    .icon-user {
+      display: block;
+      right: 34px;
+    }
+    
+    .ga-layer-infos label {
+      padding-right: 5.1em;
+    }
+  }
+
+  .ga-layer-time-enabled .ga-layer-infos label {
+    padding-right: 7.7em;
+  }
+
+  .ga-layer-tools {
+    position: absolute;
+    width: 100%;
+    top: 3em;
+    left: 0;
+    background: #fff;
+    border-left: 3px solid #666;
+    .transition(top .35s ease);
+
+    label {
+      font-size: 0.9em;
+      padding-left: 0.3em;
+
+      > * {
+        display: inline-block;
+      }
+    }
+  }
+ 
+  .ga-layer-tools, .ga-layer-infos {
+    height: 3em;
+  }
+
+  .ga-layer-time-enabled .ga-layer-tools {
+ 
+    @media (max-width: 335px) {
+      label > div {
+        font-size: 0.8em;
+        width: 60px;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .icon-gear {
+    display: block;
+    position: absolute;
+    right: 0;
+    .transition-transform(.35s ease);
+    .rotate(0deg);
+    color: red;
+  }
+
+  .ga-layer-ordering {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+
+    button {
+      height: 100%;
+    }
+    .icon-info-sign {
+      display: inline;
+    }
+  }
+
+  .ga-layer-folded {
+    height: 3em;
+
+    .ga-layer-tools {
+      top: 0em;
+    }
+
+    .icon-gear {
+      .rotate(360deg);
+      color: black;
+    }
+  }
+}
+
+.ga-3d-active .ga-layer-time {
+  display: none;
+}
+
+/* HACK for alignment in FF and IE */
+.no-webkit [ga-layermanager] .ga-layer-infos label {
+  margin-top: -1px;
+}
+
+/* The popover is outside the layermanager */
+.ga-layer-timestamps {
+  width: 200px;
+ 
+  & div {
+    width: 50px;
+    height: 20px;
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, 0);
+    text-align: center;
+
+    &:not(.badge):hover {
+      border: 1px solid #C6C6C6;
+      background-color: #D3D3D3;
+      cursor: pointer;
+      color: red;
+    }
+  }
+}
+
+.ga-layer-timestamps .badge, [ga-layermanager] .badge {
+  background-color: #D3D3D3;
+  border: 0;
+  font-size: inherit;
+  font-weight: normal;
+ 
+  &, &.ga-black, &.ga-black:hover {
+    color: #000;
+  }
+ 
+  &:not(.ga-black), &:not(.ga-black):hover {
+    color: #f00;
+  }
+}
+

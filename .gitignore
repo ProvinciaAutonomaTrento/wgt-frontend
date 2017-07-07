@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# NPM Dependency directory
+node_modules/
+
+# Bower dependency directory
+bower_components/
+
+# Gulp output
+src/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Java
+pom.xml
+target/
+
+# JBoss
+ext-resources/
+Help_DB_ita.csv
+
+# Custom
+*.pdf

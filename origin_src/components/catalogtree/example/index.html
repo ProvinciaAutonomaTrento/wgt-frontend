@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html ng-app='ga_catalogtree_example'>
+  <head>
+    <title>Catalog Component Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <base href="../../../">
+    <script>
+      function toAbsURL(s) {
+        var l = location, h, p, f, i;
+        if (/^\w+:/.test(s)) {
+          return s;
+        }
+        h = l.protocol + '//' + l.host;
+        if (s.indexOf('/') == 0) {
+          return h + s;
+        }
+        p = l.pathname.replace(/\/[^\/]*$/, '');
+        f = s.match(/\.\.\//g);
+        if (f) {
+          s = s.substring(f.length * 3);
+          for (i = f.length; i--;) {
+            p = p.substring(0, p.lastIndexOf('/'));
+          }
+        }
+        return h + p + '/' + s;
+      }
+    </script>
+    <!--[if IE]>
+    <script>
+      (function() {
+        var base = document.getElementsByTagName('base')[0];
+        base.href = toAbsURL(base.href);
+      })();
+    </script>
+    <![endif]-->
+    <link href="style/app.css" rel="stylesheet" media="screen">
+    <style>
+      #container {
+      }
+      #map {
+        height: 400px;
+        width: 400px;
+        float: left;
+      }
+      #catalogs {
+        margin-left: 400px;
+      }
+
+      .catalog {
+        margin: 20px;
+      }
+      #catalog1 {
+       float: left;
+      }
+    </style>
+  </head>
+  <body ng-controller="MainController">
+    <div id="container">
+
+      <div id="map" class="map" ga-map ga-map-map="map"></div>
+
+      <div id="catalogs" ng-controller="CatalogTreeController">
+        <button ng-click="switchCatalog()">Click me to change tree</button>
+
+        <div>
+          <div class="catalog" id="catalog1">
+             <!-- This shows the tree including the root node -->
+             <div ga-catalogtree ga-catalogtree-options="options" ga-catalogtree-map="map"></div>
+          </div>
+        <div>
+      </div>
+    </div>
+    
+       
+    <script src="lib/jquery-2.0.3.js"></script>
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-translate.js"></script>
+    <script src="lib/angular-translate-loader-static-files.js"></script>
+    <script src="lib/bootstrap-3.3.1.js"></script>
+    <script src="lib/proj4js-compressed.js"></script>
+    <script src="lib/EPSG21781.js"></script>
+    <script>
+      window.CLOSURE_NO_DEPS = true;
+    </script>
+    <script src="lib/ol-debug.js"></script>
+    <script src="deps.js"></script>
+    <script>
+      goog.require('ga_catalogtree');
+      goog.require('ga_map');
+    </script>
+    <script>
+      (function() {
+        var module = angular.module('ga_catalogtree_example', [
+          'ga_catalogtree',
+          'pascalprecht.translate',
+          'ga_map'
+        ]);
+        
+        module.constant('gaGlobalOptions', {
+          serviceUrl : '//mf-chsdi3.dev.bgdi.ch',
+          baseUrlPath: '/main'
+        });
+
+        module.config(['gaLayersProvider', function(gaLayersProvider) {
+           gaLayersProvider.wmtsGetTileUrlTemplate =
+               'https://wmts{0-4}.geo.admin.ch/1.0.0/{Layer}/default/' +
+               '{Time}/21781/{TileMatrix}/{TileRow}/{TileCol}.{Format}';
+
+           gaLayersProvider.layersConfigUrlTemplate =
+               'https://mf-chsdi3.dev.bgdi.ch/rest/services/all/MapServer/layersConfig' +
+               '?lang={Lang}';
+           gaLayersProvider.legendUrlTemplate =
+               'https://mf-chsdi3.dev.bgdi.ch/rest/services/all/MapServer/{Layer}/legend' +
+               '?lang={Lang}';
+        }]);
+
+        module.config(['gaRecenterMapOnFeaturesProvider', function(gaRecenterMapOnFeaturesProvider) {
+          gaRecenterMapOnFeaturesProvider.url =
+              '/main/rest/services/all/MapServer/';
+        }]);
+ 
+ 
+
+
+
+        module.controller('MainController', 
+          ['$scope', 'gaLayers', '$rootScope', '$translate',
+          function($scope, gaLayers, $rootScope, $translate) {
+            $translate.use('en');
+
+            var defaultExtent = [485869.5728, 76443.1884, 837076.5648, 299941.7864];
+            var swissProjection = ol.proj.get('EPSG:21781');
+            swissProjection.setExtent(defaultExtent);
+
+            var resolutions = [650.0, 500.0, 250.0, 100.0, 50.0, 20.0, 10.0, 5.0, 2.5,
+              2.0, 1.0, 0.5, 0.25, 0.1];
+
+            var map = new ol.Map({
+              controls: ol.control.defaults({
+                attribution: false
+              }),
+              renderer: ol.RendererHint.CANVAS,
+              view: new ol.View({
+                projection: swissProjection,
+                center: ol.extent.getCenter(defaultExtent),
+                resolution: 500.0,
+                resolutions: resolutions
+              })
+            });
+
+            $scope.map = map;
+            var loadedBackground = false;
+
+            gaLayers.loadConfig().then(function() {
+              if (!loadedBackground) {
+                var layer = gaLayers.getOlLayerById('ch.swisstopo.pixelkarte-farbe');
+                layer.background = true;
+                map.addLayer(layer);
+                loadedBackground = true;
+              }
+            });
+
+            $rootScope.$broadcast('gaTopicChange', {
+              id: 'ech'
+            });
+
+        }]);
+     
+        module.controller('CatalogTreeController', ['$rootScope', '$scope', '$http', 'gaLayers',
+        function($rootScope, $scope, $http, gaLayers) {
+
+            var baseUrl = 'https://mf-chsdi3.dev.bgdi.ch/rest/services';
+            $scope.options = {
+              catalogUrlTemplate: baseUrl + '/{Topic}/CatalogServer'
+            };
+
+            var templates = [
+              'ech',
+              'inspire'
+            ];
+            var curTemplate = 0;
+            $scope.switchCatalog = switchCatalog;
+
+            function switchCatalog() {
+              curTemplate = curTemplate === 0 ? 1 : 0;
+              $rootScope.$broadcast('gaTopicChange', {
+                id: templates[curTemplate]
+              });
+            }
+
+        }]);
+
+      })();
+    </script>
+  </body>
+</html>

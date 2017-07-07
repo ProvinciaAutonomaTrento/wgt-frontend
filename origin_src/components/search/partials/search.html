@@ -1,0 +1,26 @@
+<form class="pull-left">
+  <span translate class="ga-search-title">search_title</span>
+  <span class="ga-search-input-container">
+    <input class="input-small ga-search-input" type="search"
+    placeholder="{{'search_placeholder' | translate}}" ng-model="query"
+    autocapitalize="none" autocomplete="off" autocorrect="off"
+    ng-keydown="keydown($event)"
+    ng-blur="lostFocus($event)"
+    ng-focus="onFocus()"
+    ng-disabled="!topicLoaded">
+    <i class="icon-search"></i>
+    <button class="icon-remove-sign ga-icon ga-btn" ng-click="clearInput()"
+       ng-mousedown="preClear($event)" ng-hide="query==''"></button>
+
+    <span class="ga-search-dropdown"
+          ng-show="restat.sets()"
+          ng-class="'ga-search-' + restat.sets()">
+      <!-- locations -->
+      <div ga-search-locations ga-search-locations-options="childoptions" ga-search-locations-map="map" ga-search-locations-ol3d="::ol3d"></div>
+      <!-- features -->
+      <div ga-search-features ga-search-features-options="childoptions" ga-search-features-map="map" ga-search-features-ol3d="::ol3d"></div>
+      <!-- layers -->
+      <div ga-search-layers ga-search-layers-options="childoptions" ga-search-layers-map="map"></div>
+    </span> <!-- dropdown -->
+  </span> <!-- input container -->
+  </form>

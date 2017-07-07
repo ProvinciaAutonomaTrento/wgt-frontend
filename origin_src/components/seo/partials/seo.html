@@ -1,0 +1,28 @@
+<div>
+ <!-- this is the popup we will show our information -->
+  <div ga-popup="showPopup"
+       ga-popup-options="{title:'Information'}"
+       ga-draggable=".popover-title"
+       id="seo-popup" >
+
+    <!-- Show all locations derived from PL Y,X and zoom -->
+    <div ng-repeat="htmlsnippet in coordinateLocations">
+      <div ng-bind-html="htmlsnippet"></div>
+    </div>
+
+    <!-- Show all feature metadata -->
+    <div ng-repeat="htmlsnippet in featureMetadatas">
+      <div ng-bind-html="htmlsnippet"></div>
+    </div>
+
+    <!-- Show all layer metadata -->
+    <div ng-repeat="htmlsnippet in layerMetadatas">
+      <div ng-bind-html="htmlsnippet"></div>
+    </div>
+  </div> <!-- end popup -->
+
+  <!-- this is the trigger. activate to indicate the end of page loading -->
+  <div id="seo-load-end" ng-if="triggerPageEnd"></div>
+</div>
+
+

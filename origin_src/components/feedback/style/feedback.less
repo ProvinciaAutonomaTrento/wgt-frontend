@@ -1,0 +1,44 @@
+[ga-feedback] {
+  label, p {
+    margin-top: 5px;
+  }
+  .ga-feedback-footer {
+    padding-top: 10px;
+    border-top: 1px solid #e5e5e5;
+  }
+  input[type=file] {
+    display: none;
+  }
+  input[type=text][readonly] {
+    cursor: pointer;
+  }
+  .progress {
+    margin-top: 8px;
+  }
+  textarea {
+    resize: none; /* Firefox & Webkit desktop*/
+  }
+  [ga-draw] {
+    width: 100%;
+
+    .ga-draw-buttons {
+      margin: 0;
+
+      button {
+        margin: 5px 15px;
+        
+        @media (max-width: @screen-tablet), (max-height: @screen-sm-max-height) {
+          margin: 5px 3px;
+        }
+        
+        &:nth-child(4) {
+          display: none;
+        }
+      }
+    }
+    .ga-more {
+      display: none;
+    }
+  }
+}
+     

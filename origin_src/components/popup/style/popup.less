@@ -1,0 +1,179 @@
+@ga-popup-max-height: 440px;
+@ga-popup-reduced-height: 40px;
+@ga-popup-max-width: 620px;
+
+[ga-popup] {
+  display: none;
+  overflow: hidden;
+  min-width: 210px;
+  max-width: @ga-popup-max-width;
+  min-height: 100px;
+  max-height: @ga-popup-max-height;
+  z-index: 2000;
+ 
+ &.ga-popup-bottom-left {
+    max-width: none;
+    max-height: none;
+    overflow: hidden;
+    top: auto!important;
+    bottom: 34px;
+    border-radius: 0;
+    background-clip: initial;
+    height: 240px;
+    
+    .ga-popup-content {
+      max-height: inherit;
+    }
+    
+    @media (max-width: @screen-tablet) {
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+    }
+  }
+
+  .popover-title {
+    position: relative;
+    padding: 0;
+  }
+
+  .ga-popup-title {
+    padding: 8px 0px 8px 14px;
+    cursor: inherit;
+  }
+
+  /* !important is used to override (and so deactivate) draggable styles
+  and specific popups styles */
+  &.ga-popup-reduced {
+    position: relative!important;
+    float: left!important;
+    height: unit(@ga-popup-reduced-height, px) !important;
+    min-height:  unit(@ga-popup-reduced-height, px) !important;
+    width: 190px!important;
+    min-width: 190px!important;
+    top: initial!important;
+    left: initial!important;
+    bottom: unit(@footer-height + @ga-popup-reduced-height, px)!important;
+    right: initial!important;
+    top: auto!important; // for IE
+    left: auto!important; // for IE
+    right: auto!important; // for IE
+    z-index: 500;
+    .transition(bottom 1s ease);
+
+    .popover-title {
+      padding-right: 30px;
+      cursor: pointer;
+      color: white;
+      background-color: red;
+
+      &:active {
+       opacity: 0.3;
+      }
+    }
+
+    .icon-print, .icon-question-circle, .icon-minus {
+      display: none;
+    }
+
+    @media (max-width: @screen-tablet) {
+      width: 160px!important;
+      min-width: 160px!important;
+      bottom: unit(@ga-popup-reduced-height + 14, px);
+    }
+  }
+
+  /* !important is used to override (and so deactivate) draggable styles
+  applied */
+  @media (max-width: @screen-tablet) {
+    z-index: 1500;
+    top: 2% !important;
+    left: 2% !important;
+    right: 2%;
+    bottom: 2%;
+    width: auto!important;
+    max-height: none;
+    max-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: @screen-phone) {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .ga-popup-content {
+    overflow: auto;
+    width: 100%;
+    max-width: inherit;
+    max-height: (@ga-popup-max-height - 60);
+    font-size: 12px;
+
+    @media (max-width: @screen-tablet) {
+      width: 100%;
+      height: ~"calc(100% - 36px)";
+      max-height: none;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+
+  .ga-buttons {
+    position: absolute;
+    right: 8px;
+    top: 0px;
+    height: 100%;
+
+    @media (max-width: @screen-tablet) {
+      right: 0px;
+    }
+
+    button {
+      width: 18px;
+      height: inherit;
+      opacity: 0.3;
+      visibility: visible;
+      padding: 0;
+      margin: 0;
+      vertical-align: top;
+      color: inherit;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: bold;
+      line-height: inherit;
+      border: none;
+      box-shadow: none;
+      background: none;
+
+      &:hover {
+        opacity: 0.7;
+      }
+      &:active {
+        opacity: 1;
+      }
+
+      &.icon-remove {
+        font-weight: normal;
+        font-size: 18px;
+      }
+
+      &.icon-minus {
+        padding-top: 7px;
+      }
+
+      @media (max-width: @screen-tablet) {
+        width: 30px;
+        font-size: 18px;
+
+        &.icon-remove {
+          font-size: 20px;
+        }
+
+        &.icon-minus {
+          padding-top: 10px;
+        }
+      }
+    }
+  }
+}
+
