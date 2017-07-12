@@ -6,5 +6,5 @@
 # gulp --color --profile=dev
 
 npm install
-bower install
-gulp --profile=prod
+npm run bower-install
+npm run gulp-prod

@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "WGT - Web GIS Trasversale",
   "private": true,
+  "scripts": {
+    "bower-install": "bower install",
+    "gulp-prod": "gulp --profile=prod",
+    "gulp-dev": "gulp --profile=dev",
+    "gulp-connect": "gulp connect"
+  },
   "dependencies": {
     "bootstrap": "3.1.1",
     "del": "^2.2.0",
