@@ -280,6 +280,14 @@ goog.require('ga_urlutils_service');
                     updateDelay: {
                         writable: true,
                         value: null
+                    },
+                    wmsSource: {
+                        get: function(){
+                            return this.get('wmsSource');
+                        },
+                        set: function (val) {
+                            this.set('wmsSource', val);
+                        }
                     }
                 });
             };
@@ -1858,6 +1866,7 @@ goog.require('ga_urlutils_service');
                         olLayer.label = layer.label;
                         olLayer.type = layer.type;
                         olLayer.timeEnabled = layer.timeEnabled;
+                        olLayer.wmsSource = layer.wmsSource;
                         olLayer.timestamps = layer.timestamps;
                         olLayer.geojsonUrl = layer.geojsonUrl;
                         olLayer.updateDelay = layer.updateDelay;

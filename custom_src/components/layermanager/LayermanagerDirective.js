@@ -261,13 +261,25 @@ goog.require('ga_urlutils_service');
         if (!scope.mobile) {
           // Display the third party data tooltip
           element.tooltip({
-            selector: '.icon-user',
+            selector: '.ga-layer-warning .icon-user, .ga-layer-external .icon-user',
             container: 'body',
             placement: 'right',
             title: function(elm) {
               return $translate.instant('external_data_tooltip');
             },
             template: '<div class="tooltip ga-red-tooltip" role="tooltip">' +
+                '<div class="tooltip-arrow"></div><div class="tooltip-inner">' +
+                '</div></div>'
+          });
+
+          element.tooltip({
+            selector: '.ga-layer-infotn .icon-user',
+            container: 'body',
+            placement: 'right',
+            title: function(elm) {
+              return $translate.instant('external_data_tooltip');
+            },
+            template: '<div class="tooltip ga-orange-tooltip" role="tooltip">' +
                 '<div class="tooltip-arrow"></div><div class="tooltip-inner">' +
                 '</div></div>'
           });
