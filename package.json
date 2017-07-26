@@ -10,7 +10,7 @@
     "gulp-connect": "gulp connect"
   },
   "dependencies": {
-    "bootstrap": "3.1.1",
+    "bootstrap": "^3.1.1",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-closure-deps": "^0.4.0",
