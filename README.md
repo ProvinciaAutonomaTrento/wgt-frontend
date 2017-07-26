@@ -14,5 +14,5 @@ The build process made with `gulp` generates the `src` folder, which contains th
 
 ## How to build
 1. `npm install`
-2. `bower install`
-3. `gulp --profile=prod`
+2. `npm run bower-install`
+3. `npm run gulp-prod`
