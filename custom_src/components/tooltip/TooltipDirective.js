@@ -351,10 +351,15 @@ goog.require('ga_urlutils_service');
                                     showVectorFeature(feature, layerToQuery);
                                 }
                             } else if (layerToQuery.bodId) { // queryable bod layers
+                                var geomCoord = pixel[0] + ',' + pixel[1];
+                                if (layerToQuery.wmsSource == "internal"  ){
+                                    geomCoord = coordinate[0] + ',' + coordinate[1]
+                                }
+
                                 var params = {
                                     geometryType: 'esriGeometryPoint',
                                     geometryFormat: 'geojson',
-                                    geometry: coordinate[0] + ',' + coordinate[1],
+                                    geometry: geomCoord,
                                     // FIXME: make sure we are passing the right dpi here.
                                     imageDisplay: size[0] + ',' + size[1] + ',96',
                                     mapExtent: mapExtent.join(','),
