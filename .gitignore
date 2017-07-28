@@ -8,6 +8,7 @@
 
 # NPM Dependency directory
 node_modules/
+package-lock.json
 
 # Bower dependency directory
 bower_components/

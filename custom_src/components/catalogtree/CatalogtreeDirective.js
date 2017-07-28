@@ -208,7 +208,7 @@ goog.require('ga_translation_service');
                 var MAX_ALLOWED_ITEMS = gaGlobalOptions.maxItemAllowed;
                 //Check if the current selected items are more than the previous ones!
                 if (currentItemSize >= old_layer_count){
-                    if (currentItemSize > MIN_ITEMS_SHOW_SLOW_WARNING && currentItemSize < MAX_ALLOWED_ITEMS) {
+                    if (currentItemSize > MIN_ITEMS_SHOW_SLOW_WARNING && currentItemSize <= MAX_ALLOWED_ITEMS) {
                         if (!popup) {
                             popup = gaPopup.create({
                                 className: 'ga-tooltip',
@@ -221,7 +221,7 @@ goog.require('ga_translation_service');
                             });
                             popup.open();
                         }
-                    } else if (currentItemSize >= MAX_ALLOWED_ITEMS) {
+                    } else if (currentItemSize > MAX_ALLOWED_ITEMS) {
                         if (!popup) {
                             popup = gaPopup.create({
                                 className: 'ga-tooltip',
