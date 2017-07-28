@@ -2684,6 +2684,30 @@ goog.require('ga_urlutils_service');
                 var addLayers = function (layerSpecs, opacities, visibilities,
                                           timestamps) {
                     var nbLayersToAdd = layerSpecs.length;
+                    // get from config
+                    var MAX_ALLOWED_ITEMS = gaGlobalOptions.maxItemAllowed;
+                    //Check if the current selected items are more than the previous ones!
+                    if (nbLayersToAdd >= MAX_ALLOWED_ITEMS){
+
+                        // TODO if (!popup) {
+                        //     popup = gaPopup.create({
+                        //         className: 'ga-tooltip',
+                        //         title: $translate.instant('warning'),
+                        //         content: $translate.instant('external_layers_count_warning'),
+                        //         showPrint: false,
+                        //         onCloseCallback: function () {
+                        //             popup = undefined;
+                        //         }
+                        //     });
+                        //     popup.open();
+                        // }
+
+                        layerSpecs.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
+                        opacities.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
+                        visibilities.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
+                        timestamps.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
+                        nbLayersToAdd = MAX_ALLOWED_ITEMS;
+                    }
                     angular.forEach(layerSpecs, function (layerSpec, index) {
                         var layer;
                         var opacity = (opacities && index < opacities.length) ?

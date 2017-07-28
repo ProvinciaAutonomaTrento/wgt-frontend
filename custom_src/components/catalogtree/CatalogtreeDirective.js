@@ -22,7 +22,7 @@ goog.require('ga_translation_service');
      */
     module.directive('gaCatalogtree',
         function ($http, $q, $translate, $window, $rootScope, gaPermalink, gaMapUtils,
-                  gaCatalogtreeMapUtils, gaLayers, gaLayerFilters, gaTopic, gaLang, gaPopup) {
+                  gaCatalogtreeMapUtils, gaLayers, gaLayerFilters, gaTopic, gaLang, gaPopup, gaGlobalOptions) {
 
             var old_layer_count = -1;
             var popup;
@@ -204,8 +204,8 @@ goog.require('ga_translation_service');
                 if (old_layer_count < 0){
                     old_layer_count = currentItemSize;
                 }
-                var MIN_ITEMS_SHOW_SLOW_WARNING = 15; //Questo è il valore minimo di layer per cui viene visualizzato il popup di warning di "rallentamento"
-                var MAX_ALLOWED_ITEMS = 20;
+                var MIN_ITEMS_SHOW_SLOW_WARNING = gaGlobalOptions.maxItemWarning;//15; //Questo è il valore minimo di layer per cui viene visualizzato il popup di warning di "rallentamento"
+                var MAX_ALLOWED_ITEMS = gaGlobalOptions.maxItemAllowed;
                 //Check if the current selected items are more than the previous ones!
                 if (currentItemSize >= old_layer_count){
                     if (currentItemSize > MIN_ITEMS_SHOW_SLOW_WARNING && currentItemSize < MAX_ALLOWED_ITEMS) {
