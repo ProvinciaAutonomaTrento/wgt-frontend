@@ -749,17 +749,20 @@ goog.require('ga_time_service');
 
           var base_url;
           var layer_name;
+
           //WMS
           try {
             base_url = layer.getProperties().source.getUrl();
             layer_name = layer.getProperties().source.getParams().LAYERS;
           } catch (e) {}
+
           //WMTS
           try {
             base_url = layer.getProperties().source.getUrls()[0].replace("wmts", "wms");
             layer_name = layer.getProperties().source.getLayer();
           } catch (e) {}
 
+          // Custom legend icon URL
           if (base_url && layer_name) {
             var url_legend = location.origin + location.pathname + base_url.concat(encodeURIComponent('&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER='.concat(layer_name)));
             enc.classes.push({
