@@ -47,8 +47,8 @@ goog.require('ga_urlutils_service');
             // Test if the layer is a vector layer
             var isVectorLayer = function (olLayer) {
                 return (olLayer instanceof ol.layer.Vector ||
-                (olLayer instanceof ol.layer.Image &&
-                olLayer.getSource() instanceof ol.source.ImageVector));
+                    (olLayer instanceof ol.layer.Image &&
+                        olLayer.getSource() instanceof ol.source.ImageVector));
             };
 
             // Test if the layer has a tooltip
@@ -351,9 +351,9 @@ goog.require('ga_urlutils_service');
                                     showVectorFeature(feature, layerToQuery);
                                 }
                             } else if (layerToQuery.bodId) { // queryable bod layers
-                                var geomCoord = pixel[0] + ',' + pixel[1];
-                                if (layerToQuery.wmsSource == "internal"  ){
-                                    geomCoord = coordinate[0] + ',' + coordinate[1]
+                                var geomCoord = coordinate[0] + ',' + coordinate[1];
+                                if (layerToQuery.wmsSource != "internal") {
+                                    geomCoord = pixel[0] + ',' + pixel[1];
                                 }
 
                                 var params = {
@@ -547,7 +547,7 @@ goog.require('ga_urlutils_service');
                             if (!gaBrowserSniffer.mobile) {
                                 popup.element.css({
                                     left: ((map.getSize()[0] / 2) -
-                                    (parseFloat(popup.element.css('max-width')) / 2))
+                                        (parseFloat(popup.element.css('max-width')) / 2))
                                 });
                             }
                         }
