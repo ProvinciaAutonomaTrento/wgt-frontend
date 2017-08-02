@@ -201,14 +201,14 @@ goog.require('ga_translation_service');
 
             function updateSelectionInTree(root, layerBodIds, map) {
                 var currentItemSize = layerBodIds.length;
-                if (old_layer_count < 0){
+                if (old_layer_count < 0) {
                     old_layer_count = currentItemSize;
                 }
-                var MIN_ITEMS_SHOW_SLOW_WARNING = gaGlobalOptions.maxItemWarning;//15; //Questo è il valore minimo di layer per cui viene visualizzato il popup di warning di "rallentamento"
-                var MAX_ALLOWED_ITEMS = gaGlobalOptions.maxItemAllowed;
+                var MAX_LAYER_WARNING = gaGlobalOptions.maxLayerWarning;//15; //Questo è il valore minimo di layer per cui viene visualizzato il popup di warning di "rallentamento"
+                var MAX_LAYER_ERROR = gaGlobalOptions.maxLayerError;
                 //Check if the current selected items are more than the previous ones!
-                if (currentItemSize >= old_layer_count){
-                    if (currentItemSize > MIN_ITEMS_SHOW_SLOW_WARNING && currentItemSize <= MAX_ALLOWED_ITEMS) {
+                if (currentItemSize >= old_layer_count) {
+                    if (currentItemSize > MAX_LAYER_WARNING && currentItemSize <= MAX_LAYER_ERROR) {
                         if (!popup) {
                             popup = gaPopup.create({
                                 className: 'ga-tooltip',
@@ -221,7 +221,7 @@ goog.require('ga_translation_service');
                             });
                             popup.open();
                         }
-                    } else if (currentItemSize > MAX_ALLOWED_ITEMS) {
+                    } else if (currentItemSize > MAX_LAYER_ERROR) {
                         if (!popup) {
                             popup = gaPopup.create({
                                 className: 'ga-tooltip',

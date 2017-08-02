@@ -282,7 +282,7 @@ goog.require('ga_urlutils_service');
                         value: null
                     },
                     wmsSource: {
-                        get: function(){
+                        get: function () {
                             return this.get('wmsSource');
                         },
                         set: function (val) {
@@ -333,8 +333,8 @@ goog.require('ga_urlutils_service');
                         // event. to avoid a 'false' touchmove event to be dispatched,
                         // we test if the pointer effectively moved.
                         if (down && (!gaBrowserSniffer.msie ||
-                            evt.clientX != down.clientX ||
-                            evt.clientY != down.clientY)) {
+                                evt.clientX != down.clientX ||
+                                evt.clientY != down.clientY)) {
                             moving = true;
                         }
                     };
@@ -644,7 +644,7 @@ goog.require('ga_urlutils_service');
                 // TODO Handle GeometryCollection displaying name on the first Point
                 // geometry.
                 if (style && (geom instanceof ol.geom.Point ||
-                    geom instanceof ol.geom.MultiPoint)) {
+                        geom instanceof ol.geom.MultiPoint)) {
                     var image = style.getImage();
                     var text = null;
 
@@ -691,8 +691,8 @@ goog.require('ga_urlutils_service');
                     feature.setStyle(gaStyleFactory.getFeatureStyleFunction('measure'));
                     // Remove image and text styles for polygons and lines
                 } else if (!(geom instanceof ol.geom.Point ||
-                    geom instanceof ol.geom.MultiPoint ||
-                    geom instanceof ol.geom.GeometryCollection)) {
+                        geom instanceof ol.geom.MultiPoint ||
+                        geom instanceof ol.geom.GeometryCollection)) {
                     styles = [new ol.style.Style({
                         fill: style.getFill(),
                         stroke: style.getStroke(),
@@ -996,7 +996,7 @@ goog.require('ga_urlutils_service');
                 // TODO Handle GeometryCollection displaying name on the first Point
                 // geometry.
                 if (style && (geom instanceof ol.geom.Point ||
-                    geom instanceof ol.geom.MultiPoint)) {
+                        geom instanceof ol.geom.MultiPoint)) {
                     var image = style.getImage();
                     var text = null;
 
@@ -1043,8 +1043,8 @@ goog.require('ga_urlutils_service');
                     feature.setStyle(gaStyleFactory.getFeatureStyleFunction('measure'));
                     // Remove image and text styles for polygons and lines
                 } else if (!(geom instanceof ol.geom.Point ||
-                    geom instanceof ol.geom.MultiPoint ||
-                    geom instanceof ol.geom.GeometryCollection)) {
+                        geom instanceof ol.geom.MultiPoint ||
+                        geom instanceof ol.geom.GeometryCollection)) {
                     styles = [new ol.style.Style({
                         fill: style.getFill(),
                         stroke: style.getStroke(),
@@ -1138,15 +1138,15 @@ goog.require('ga_urlutils_service');
                             // If the layer can contain measure features, we register some
                             // events to add/remove correctly the overlays
                             //if (gaMapUtils.isStoredGpxLayer(olLayer)) {
-                                if (olLayer.getVisible()) {
-                                    angular.forEach(olLayer.getSource().getFeatures(),
-                                        function (feature) {
-                                            if (gaMapUtils.isMeasureFeature(feature)) {
-                                                gaMeasure.addOverlays(olMap, olLayer, feature);
-                                            }
-                                        });
-                                }
-                                gaMeasure.registerOverlaysEvents(olMap, olLayer);
+                            if (olLayer.getVisible()) {
+                                angular.forEach(olLayer.getSource().getFeatures(),
+                                    function (feature) {
+                                        if (gaMapUtils.isMeasureFeature(feature)) {
+                                            gaMeasure.addOverlays(olMap, olLayer, feature);
+                                        }
+                                    });
+                            }
+                            gaMeasure.registerOverlaysEvents(olMap, olLayer);
                             //}
 
                             if (options.zoomToExtent) {
@@ -1450,6 +1450,7 @@ goog.require('ga_urlutils_service');
                         var results = [];
                         var j = 0;
                         recursive(promises[j]);
+
                         function recursive(promise) {
                             j++;
                             promise.getPromise().then(function (data) {
@@ -2262,7 +2263,7 @@ goog.require('ga_urlutils_service');
                 isMeasureFeature: function (olFeature) {
                     var regex = /^measure/;
                     return (olFeature && (regex.test(olFeature.get('type')) ||
-                    regex.test(olFeature.getId())));
+                        regex.test(olFeature.getId())));
                 },
 
                 moveLayerOnTop: function (map, olLayer) {
@@ -2685,9 +2686,9 @@ goog.require('ga_urlutils_service');
                                           timestamps) {
                     var nbLayersToAdd = layerSpecs.length;
                     // get from config
-                    var MAX_ALLOWED_ITEMS = gaGlobalOptions.maxItemAllowed;
+                    var MAX_LAYER_ERROR = gaGlobalOptions.maxLayerError;
                     //Check if the current selected items are more than the previous ones!
-                    if (nbLayersToAdd >= MAX_ALLOWED_ITEMS){
+                    if (nbLayersToAdd >= MAX_LAYER_ERROR) {
 
                         // TODO if (!popup) {
                         //     popup = gaPopup.create({
@@ -2702,22 +2703,22 @@ goog.require('ga_urlutils_service');
                         //     popup.open();
                         // }
 
-                        layerSpecs.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
-                        opacities.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
-                        visibilities.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
-                        timestamps.splice(MAX_ALLOWED_ITEMS, (nbLayersToAdd-MAX_ALLOWED_ITEMS));
-                        nbLayersToAdd = MAX_ALLOWED_ITEMS;
+                        layerSpecs.splice(MAX_LAYER_ERROR, (nbLayersToAdd - MAX_LAYER_ERROR));
+                        opacities.splice(MAX_LAYER_ERROR, (nbLayersToAdd - MAX_LAYER_ERROR));
+                        visibilities.splice(MAX_LAYER_ERROR, (nbLayersToAdd - MAX_LAYER_ERROR));
+                        timestamps.splice(MAX_LAYER_ERROR, (nbLayersToAdd - MAX_LAYER_ERROR));
+                        nbLayersToAdd = MAX_LAYER_ERROR;
                     }
                     angular.forEach(layerSpecs, function (layerSpec, index) {
                         var layer;
                         var opacity = (opacities && index < opacities.length) ?
                             opacities[index] : undefined;
                         var visible = (visibilities === false ||
-                        (angular.isArray(visibilities) &&
-                        visibilities[index] == 'false')) ?
+                            (angular.isArray(visibilities) &&
+                                visibilities[index] == 'false')) ?
                             false : true;
                         var timestamp = (timestamps && index < timestamps.length &&
-                        timestamps != '') ? timestamps[index] : '';
+                            timestamps != '') ? timestamps[index] : '';
 
                         var bodLayer = gaLayers.getLayer(layerSpec);
                         if (bodLayer) {
@@ -3242,7 +3243,7 @@ goog.require('ga_urlutils_service');
                 scope.layers = scope.map.getLayers().getArray();
                 scope.f = function (l) {
                     return (gaLayerFilters.background(l) ||
-                    gaLayerFilters.selected(l));
+                        gaLayerFilters.selected(l));
                 };
                 scope.$watchCollection('layers | filter:f', function (l) {
                     layers = (l) ? l : [];
