@@ -268,7 +268,7 @@ goog.require('ga_urlutils_service');
                         // We use $timeout to execute the showFeature when the
                         // popup is correctly closed.
                         $timeout(function () {
-                            showFeatures(data.features, undefined, data.nohighlight);
+                            showFeatures(null, data.features, undefined, data.nohighlight);
                             onCloseCB = data.onCloseCB;
                         }, 0);
                     });
@@ -376,8 +376,8 @@ goog.require('ga_urlutils_service');
                                 try {
                                     params.CQL_FILTER = layerToQuery.getSource().getParams().CQL_FILTER;
                                 } catch (e) {
+                                    //TODO Log the error
                                 }
-                                ;
                                 //+++END+++
 
                                 // Only timeEnabled layers use the timeInstant parameter
@@ -386,19 +386,24 @@ goog.require('ga_urlutils_service');
                                         yearFromString(layerToQuery.time);
                                 }
 
-                                $http.get(identifyUrl, {
-                                    timeout: canceler.promise,
-                                    params: params
-                                }).success(function (features) {
-                                    showFeatures(features.results, coordinate);
-                                });
+
+
+                                var identifyClosure = function(layerSource, coords, parameters, url) {
+
+                                    $http.get(url, {
+                                        timeout: canceler.promise,
+                                        params: parameters
+                                    }).success(function (features) {
+                                        showFeatures(layerSource, features.results, coords);
+                                    });
+                                };
+                                identifyClosure(layerToQuery.wmsSource, coordinate, params, identifyUrl);
                             }
                         }
                     };
 
-                    // Highlight the features found
-                    var showFeatures = function (foundFeatures, coordinate,
-                                                 nohighlight) {
+                    // Highlight the features found --> XXX FIXME XXX : PAY ATTENTION WHEN CALLING THIS METHOD, LAYERSOURCE IS OPTIONAL, IF UNKNOWN PUT "null".
+                    var showFeatures = function (layerSource, foundFeatures, coordinate, nohighlight) {
                         if (foundFeatures && foundFeatures.length > 0) {
                             // Remove the tooltip, if a layer is removed, we don't care
                             // which layer. It worked like that in RE2.
@@ -430,10 +435,7 @@ goog.require('ga_urlutils_service');
                                         featuresByLayerId[value.layerBodId] = {};
                                     }
                                     //draw feature, but only if it should be drawn
-                                    if (!nohighlight &&
-                                        gaLayers.getLayer(value.layerBodId) &&
-                                        gaLayers.getLayerProperty(value.layerBodId,
-                                            'highlightable')) {
+                                    if (!nohighlight && gaLayers.getLayer(value.layerBodId) && gaLayers.getLayerProperty(value.layerBodId, 'highlightable')) {
                                         var features = parser.readFeatures(value);
                                         for (var i = 0, ii = features.length; i < ii; ++i) {
                                             features[i].set('layerId', value.layerBodId);
@@ -453,28 +455,62 @@ goog.require('ga_urlutils_service');
                                      .replace('{Feature}', value.featureId);
                                      */
                                     //---END---
-                                    //+++START+++
-                                    var htmlUrl = gaUrlUtils.append(scope.options.htmlUrlTemplate, "layer=" + value.layerBodId);
-                                    htmlUrl = gaUrlUtils.append(htmlUrl, "feature=" + value.id);
-                                    //+++START+++
-                                    $http.get(htmlUrl, {
-                                        //---START---
-                                        //timeout: canceler.promise,
-                                        //---END---
-                                        params: {
-                                            lang: $translate.use(),
-                                            mapExtent: mapExtent.join(','),
-                                            coord: (coordinate) ? coordinate.join(',') : undefined,
-                                            imageDisplay: size[0] + ',' + size[1] + ',96'
-                                        },
+
+                                    if (layerSource === null || layerSource === undefined || layerSource === 'internal') {
+                                        //If layer is 'internal' call htmlPopup
                                         //+++START+++
-                                        headers: {
-                                            'Accept': 'text/html'
+                                        var htmlUrl = gaUrlUtils.append(scope.options.htmlUrlTemplate, "layer=" + value.layerBodId);
+                                        htmlUrl = gaUrlUtils.append(htmlUrl, "feature=" + value.id);
+                                        //+++START+++
+                                        $http.get(htmlUrl, {
+                                            //---START---
+                                            //timeout: canceler.promise,
+                                            //---END---
+                                            params: {
+                                                lang: $translate.use(),
+                                                mapExtent: mapExtent.join(','),
+                                                coord: (coordinate) ? coordinate.join(',') : undefined,
+                                                imageDisplay: size[0] + ',' + size[1] + ',96'
+                                            },
+                                            //+++START+++
+                                            headers: {
+                                                'Accept': 'text/html'
+                                            }
+                                            //+++END+++
+                                        }).success(function (html) {
+                                            showPopup(html);
+                                        });
+                                    } else {
+                                        //else (build up html using the "features" and javascript
+                                        var htmlpopup =
+                                            '<div id="{{id}}" class="htmlpopup-container">' +
+                                            '<div class="htmlpopup-header">' +
+                                            '{{name}}' +
+                                            '</div>' +
+                                            '<div class="htmlpopup-content">' +
+                                            '{{properties}}' +
+                                            '</div>' +
+                                            '</div><br/>';
+                                        var name = value.layerName; //TODO else must get feature id and take the part of string 0...(firstIndexOf(.))
+                                        var featureId = value.id;
+                                        var layerId = value.layerId || value.bodId || value.layerBodId;
+                                        var id = layerId + '#' + featureId;
+
+                                        var properties = '';
+                                        if (value.properties !== undefined && Object.keys(value.properties).length > 0) {
+                                            properties += '<table>';
+                                            angular.forEach(value.properties, function (singleProperty, key) {
+                                                properties += '<tr><td>' + key + '</td><td>' + singleProperty + '</td></tr>';
+                                            });
+                                            properties += '</table>';
                                         }
-                                        //+++END+++
-                                    }).success(function (html) {
-                                        showPopup(html);
-                                    });
+
+                                        htmlpopup = htmlpopup.replace('{{id}}', id).replace('{{properties}}', properties || '').replace('{{name}}', (name) ? '(' + name + ')' : '');
+                                        value.htmlpopup = htmlpopup;
+                                        value.layerId = layerId;
+                                        showPopup(htmlpopup);
+
+                                    }
                                 }
                             });
                         }
@@ -499,7 +535,7 @@ goog.require('ga_urlutils_service');
                         htmlpopup = htmlpopup.replace('{{id}}', id).replace('{{descr}}', feature.get('description') || '').replace('{{name}}', (name) ? '(' + name + ')' : '');
                         feature.set('htmlpopup', htmlpopup);
                         feature.set('layerId', layerId);
-                        showFeatures([feature]);
+                        showFeatures(null, [feature]);
                         // Iframe communication from inside out
                         if (top != window) {
                             if (featureId && layerId) {
