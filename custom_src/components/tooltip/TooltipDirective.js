@@ -491,7 +491,7 @@ goog.require('ga_urlutils_service');
                                             '{{properties}}' +
                                             '</div>' +
                                             '</div><br/>';
-                                        var name = value.layerName; //TODO else must get feature id and take the part of string 0...(firstIndexOf(.))
+                                        var name = value.layerName; // else must get feature id and take the part of string 0...(firstIndexOf(.))
                                         var featureId = value.id;
                                         var layerId = value.layerId || value.bodId || value.layerBodId;
                                         var id = layerId + '#' + featureId;
