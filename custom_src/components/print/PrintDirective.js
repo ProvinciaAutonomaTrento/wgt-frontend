@@ -873,7 +873,29 @@ goog.require('ga_time_service');
       pdfLegendsToDownload = [];
       layersYears = [];
 
-      // Re order layer by z-index
+      //EXCLUDE LAYERS "interdizione_scala_nominale"
+      var layersTmp = [];
+      var gaLayers = angular.element(document.body).injector().get('gaLayers');
+      layers.forEach(function(layer) {
+          var interdizioneScala = gaLayers.getLayerProperty(layer.bodId, 'interdizioneScalaNominale');
+          if (interdizioneScala == true) {
+              var scalaNominale = gaLayers.getLayerProperty(layer.bodId, 'scalaNominale');
+              //if has a value, set it to not visible!
+              //Check if layer has value (inderdizioneScalaNominale) and (scalaNominale), otherwise skip layer
+              var printScale = $scope.scale.value;
+              if (scalaNominale != printScale) {
+                  //Add the layer
+                  layersTmp.push(layer);
+              }
+          }else{
+              layersTmp.push(layer);
+          }
+      });
+
+      layers = layersTmp;
+
+
+        // Re order layer by z-index
       layers.sort(function(a, b) {
         return a.getZIndex() - b.getZIndex();
       });
