@@ -304,6 +304,10 @@ goog.require('ga_urlutils_service');
 
         //+++START+++
         this.get = function(feature, callback, gaGlobalOptions) {
+          //Obtain global options gaGlobalOptions
+          if (gaGlobalOptions == undefined || !gaGlobalOptions){
+              gaGlobalOptions = angular.element(document.body).injector().get('gaGlobalOptions');
+          }
           var f = feature.getGeometry().clone().transform(ol.proj.get(gaGlobalOptions.defaultEpsg), ol.proj.get('EPSG:4326'));
           var coordinates = f.getCoordinates();
 
@@ -322,9 +326,10 @@ goog.require('ga_urlutils_service');
           cancel();
           canceler = $q.defer();
 
+          //TODO get services url
           var params = {
             method: 'POST',
-            url: "services/height/profile",
+            url: gaGlobalOptions.apiUrl + "/height/profile", //url: "services/height/profile",
             data: formData,
             cache: true,
             timeout: canceler.promise
