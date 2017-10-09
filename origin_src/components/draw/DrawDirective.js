@@ -602,7 +602,7 @@ goog.require('ga_permalink');
           };
           // Delete all features of the layer
           scope.deleteAllFeatures = function() {
-            if (confirm($translate.instant('confirm_remove_all_features'))) {
+            if (confirm($translate.instant('confirm_remove_selected_features'))) {
               select.getFeatures().clear();
               layer.getSource().clear();
               if (layer.adminId) {
