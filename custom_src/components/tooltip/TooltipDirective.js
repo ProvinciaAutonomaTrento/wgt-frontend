@@ -21,10 +21,9 @@ goog.require('ga_urlutils_service');
         'ga_styles_service',
         'ga_time_service',
         'pascalprecht.translate',
-        'ga_topic_service'
-        //+++START+++
-        , 'ga_urlutils_service'
-        //+++END+++
+        'ga_topic_service',
+        'ga_urlutils_service',
+        'ui.bootstrap'
     ]);
 
     module.directive('gaTooltip',
@@ -551,6 +550,12 @@ goog.require('ga_urlutils_service');
                             if (!popup) {
                                 popup = gaPopup.create({
                                     className: 'ga-tooltip',
+                                    openImmaginiPopup: function (layer, feature, lang) {
+                                        getCarousel(layer, feature, lang);
+                                    },
+                                    openDocumentiPopup: function (layer, feature, lang) {
+                                        getDocuments(layer, feature, lang);
+                                    },
                                     onCloseCallback: function () {
                                         if (onCloseCB) {
                                             onCloseCB();
@@ -591,7 +596,65 @@ goog.require('ga_urlutils_service');
                         // care of the rest
                         htmls.push($sce.trustAsHtml(html));
                     };
+
+                    var getCarousel = function (layer, feature, lang) {
+                        var urlReq = scope.options.carouselUrlTemplate;
+                        $http.get(urlReq, {
+                            params: {
+                                layer: layer,
+                                feature: feature,
+                                lang: lang
+                            },
+                            headers: {
+                                'Accept': 'text/html'
+                            }
+                        }).success(function (html) {
+                            showCarousel($sce.trustAsHtml(html));
+                        });
+                    };
+
+                    var getDocuments = function (layer, feature, lang) {
+                        var urlReq = scope.options.documentsUrlTemplate;
+                        $http.get(urlReq, {
+                            params: {
+                                layer: layer,
+                                feature: feature,
+                                lang: lang
+                            },
+                            headers: {
+                                'Accept': 'text/html'
+                            }
+                        }).success(function (html) {
+                            showDocuments(html);
+                        });
+                    };
+
+                    var showCarousel = function (html) {
+                        var carouselPopup = gaPopup.create({
+                            title: 'object_images',
+                            content: html
+                        });
+                        carouselPopup.open();
+                        //always reposition element when newly opened
+                        if (!gaBrowserSniffer.mobile) {
+                            carouselPopup.element.css({
+                                left: ((map.getSize()[0] / 2) -
+                                    (parseFloat(popup.element.css('max-width')) / 2))
+                            });
+                        }
+                    };
+
+                    var showDocuments = function (html) {
+                        var documentsPopup = gaPopup.create({
+                            title: 'object_documents',
+                            content: html
+                        });
+                        documentsPopup.open();
+                    };
+
+                // end link param
                 }
+
             };
         });
 })();

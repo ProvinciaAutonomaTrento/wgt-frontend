@@ -12,9 +12,11 @@ goog.provide('ga_tooltip_controller');
       //htmlUrlTemplate: gaGlobalOptions.cachedApiUrl +'/rest/services/{Topic}/MapServer/{Layer}/{Feature}/htmlPopup'
       //---END---
       //+++START+++
-      tolerance: gaBrowserSniffer.touchDevice ? 15 : 1,
-      identifyUrlTemplate: gaGlobalOptions.apiUrl +'/MapServer/identify',
-      htmlUrlTemplate: gaGlobalOptions.cachedApiUrl +'/MapServer/htmlPopup'
+        tolerance: gaBrowserSniffer.touchDevice ? 15 : 1,
+        identifyUrlTemplate: gaGlobalOptions.apiUrl +'/MapServer/identify',
+        htmlUrlTemplate: gaGlobalOptions.apiUrl +'/MapServer/htmlPopup',
+        carouselUrlTemplate: gaGlobalOptions.apiUrl +'/MapServer/carouselPopup',
+        documentsUrlTemplate: gaGlobalOptions.apiUrl +'/MapServer/documentsPopup'
       //++++END+++
     };
   });

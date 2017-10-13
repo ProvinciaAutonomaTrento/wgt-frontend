@@ -227,6 +227,8 @@
   "no_searchable_layer": "No searchable layer",
   "not_enough_layer_for_swipe": "The first data set of the selection can be compared. You need at least one active data set.",
   "object_information": "Object information",
+  "object_images": "Object images",
+  "object_documents": "Object documents",
   "obstacle_deleted_last_2_weeks": "Deleted obstacles of last 2 weeks",
   "obstacle_started_last_2_weeks": "Activated obstacles of last 2 weeks",
   "offline_abort_warning": "Do you really want to delete all maps?",

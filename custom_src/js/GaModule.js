@@ -1,6 +1,5 @@
 goog.provide('geoadmin');
 
-
 goog.require('ga_attribution');
 goog.require('ga_backgroundselector');
 goog.require('ga_catalogtree');
@@ -59,7 +58,6 @@ goog.require('ga_topic');
 goog.require('ga_translation');
 goog.require('ga_translation_controller');
 goog.require('ga_waitcursor_service');
-
 goog.require('ga_login');
 goog.require('ga_welcomemsg');
 goog.require('ga_importgpx');
@@ -67,75 +65,74 @@ goog.require('ga_importgpx_controller');
 goog.require('ga_importshp');
 goog.require('ga_importshp_controller');
 
-(function() {
+(function () {
 
-
-  var module = angular.module('geoadmin', [
-    'ga_controls3d',
-    'ga_attribution',
-    'ga_catalogtree',
-    'ga_contextpopup',
-    'ga_importkml',
-    'ga_importwms',
-    'ga_help',
-    'ga_map',
-    'ga_mouseposition',
-    'ga_offline',
-    'ga_popup',
-    'ga_share',
-    'ga_scaleline',
-    'ga_search',
-    'ga_topic',
-    'ga_timeselector',
-    'ga_timestamp_control',
-    'ga_backgroundselector',
-    'ga_translation',
-    'ga_feedback',
-    'ga_layermanager',
-    'ga_tooltip',
-    'ga_swipe',
-    'ga_featuretree',
-    'ga_measure',
-    'ga_profile',
-    'ga_fullscreen',
-    'ga_waitcursor_service',
-    'ga_styles_from_literals_service',
-    'ga_seo',
-    'ga_draw',
-    'ga_query',
-    'ga_modal_directive',
-    'ga_draggable_directive',
-    'ga_placeholder_directive',
-    'ga_collapsible_directive',
-    'ga_slider_directive',
-    'ga_importkml_controller',
-    'ga_geolocation',
-    'ga_rotate',
-    'ga_importwms_controller',
-    'ga_main_controller',
-    'ga_catalogtree_controller',
-    'ga_mouseposition_controller',
-    'ga_share_controller',
-    'ga_print_controller',
-    'ga_print_directive',
-    'ga_translation_controller',
-    'ga_feedback_controller',
-    'ga_contextpopup_controller',
-    'ga_search_controller',
-    'ga_seo_controller',
-    'ga_timeselector_controller',
-    'ga_tooltip_controller',
-    'ga_featuretree_controller',
-    'ga_draw_controller',
-    'ga_query_controller',
-    'ga_tilt3d',
-
-    'ga_welcomemsg',
-    'ga_login',
-    'ga_importgpx',
-    'ga_importgpx_controller',
-    'ga_importshp',
-    'ga_importshp_controller'
-  ]);
+    var module = angular.module('geoadmin', [
+        'ga_controls3d',
+        'ga_attribution',
+        'ga_catalogtree',
+        'ga_contextpopup',
+        'ga_importkml',
+        'ga_importwms',
+        'ga_help',
+        'ga_map',
+        'ga_mouseposition',
+        'ga_offline',
+        'ga_popup',
+        'ga_share',
+        'ga_scaleline',
+        'ga_search',
+        'ga_topic',
+        'ga_timeselector',
+        'ga_timestamp_control',
+        'ga_backgroundselector',
+        'ga_translation',
+        'ga_feedback',
+        'ga_layermanager',
+        'ga_tooltip',
+        'ga_swipe',
+        'ga_featuretree',
+        'ga_measure',
+        'ga_profile',
+        'ga_fullscreen',
+        'ga_waitcursor_service',
+        'ga_styles_from_literals_service',
+        'ga_seo',
+        'ga_draw',
+        'ga_query',
+        'ga_modal_directive',
+        'ga_draggable_directive',
+        'ga_placeholder_directive',
+        'ga_collapsible_directive',
+        'ga_slider_directive',
+        'ga_importkml_controller',
+        'ga_geolocation',
+        'ga_rotate',
+        'ga_importwms_controller',
+        'ga_main_controller',
+        'ga_catalogtree_controller',
+        'ga_mouseposition_controller',
+        'ga_share_controller',
+        'ga_print_controller',
+        'ga_print_directive',
+        'ga_translation_controller',
+        'ga_feedback_controller',
+        'ga_contextpopup_controller',
+        'ga_search_controller',
+        'ga_seo_controller',
+        'ga_timeselector_controller',
+        'ga_tooltip_controller',
+        'ga_featuretree_controller',
+        'ga_draw_controller',
+        'ga_query_controller',
+        'ga_tilt3d',
+        'ga_welcomemsg',
+        'ga_login',
+        'ga_importgpx',
+        'ga_importgpx_controller',
+        'ga_importshp',
+        'ga_importshp_controller',
+        'ui.bootstrap'
+    ]);
 
 })();
