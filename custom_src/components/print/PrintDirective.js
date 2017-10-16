@@ -764,7 +764,7 @@ goog.require('ga_time_service');
 
                     // Custom legend icon URL
                     // MEV4-ID26: use legend picture from layersConfig
-                    if (base_url && layer_name) {
+                    if (layer.getProperties().lk_legend) {
                         // var url_legend = location.origin + location.pathname + base_url.concat(encodeURIComponent('&REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER='.concat(layer_name)));
                         var base_url = "";
                         if (gaGlobalOptions.apiUrl.match(/^http/g)) {
