@@ -553,9 +553,6 @@ goog.require('ga_urlutils_service');
                                     openImmaginiPopup: function (layer, feature, lang) {
                                         getCarousel(layer, feature, lang);
                                     },
-                                    // openDocumentiPopup: function (layer, feature, lang) {
-                                    //     getDocuments(layer, feature, lang);
-                                    // },
                                     onCloseCallback: function () {
                                         if (onCloseCB) {
                                             onCloseCB();
@@ -613,24 +610,9 @@ goog.require('ga_urlutils_service');
                         });
                     };
 
-                    // var getDocuments = function (layer, feature, lang) {
-                    //     var urlReq = scope.options.documentsUrlTemplate;
-                    //     $http.get(urlReq, {
-                    //         params: {
-                    //             layer: layer,
-                    //             feature: feature,
-                    //             lang: lang
-                    //         },
-                    //         headers: {
-                    //             'Accept': 'text/html'
-                    //         }
-                    //     }).success(function (html) {
-                    //         showDocuments(html);
-                    //     });
-                    // };
-
                     var showCarousel = function (html) {
                         var carouselPopup = gaPopup.create({
+                            className: 'ga-tooltip',
                             title: 'object_images',
                             content: html
                         });
@@ -643,14 +625,6 @@ goog.require('ga_urlutils_service');
                             });
                         }
                     };
-
-                    // var showDocuments = function (html) {
-                    //     var documentsPopup = gaPopup.create({
-                    //         title: 'object_documents',
-                    //         content: html
-                    //     });
-                    //     documentsPopup.open();
-                    // };
 
                 // end link param
                 }
