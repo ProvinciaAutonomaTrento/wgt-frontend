@@ -350,13 +350,16 @@ goog.require('ga_urlutils_service');
                                     showVectorFeature(feature, layerToQuery);
                                 }
                             } else if (layerToQuery.bodId) { // queryable bod layers
-                                var geomCoord = coordinate[0] + ',' + coordinate[1];
-                                if (layerToQuery.wmsSource != "internal") {
-                                    geomCoord = pixel[0] + ',' + pixel[1];
-                                }
+                                var tempLayer = gaLayers.getLayer(layerToQuery.bodId);
 
+                                var geomType = "geometryPoint";
+                                var geomCoord = coordinate[0] + ',' + coordinate[1];
+                                if (tempLayer.wmsSource !== "internal" && tempLayer.wmsUrl.includes("/geoserver/")) {
+                                    geomCoord = pixel[0] + ',' + pixel[1];
+                                    geomType = "imagePixels";
+                                }
                                 var params = {
-                                    geometryType: 'esriGeometryPoint',
+                                    geometryType: geomType,
                                     geometryFormat: 'geojson',
                                     geometry: geomCoord,
                                     // FIXME: make sure we are passing the right dpi here.
