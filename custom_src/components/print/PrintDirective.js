@@ -679,6 +679,9 @@ goog.require('ga_time_service');
                         if (mapfish_version == 3) {
                             var type;
                             switch (feature.getGeometry().getType()) {
+                                case "MultiPolygon":
+                                    type = "polygon";
+                                    break;
                                 case "Polygon":
                                     type = "polygon";
                                     break;
