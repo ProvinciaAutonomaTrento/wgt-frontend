@@ -1781,6 +1781,10 @@ goog.require('ga_urlutils_service');
                             });
                         } else {
                             if (!olSource) {
+                                var gridResolutions = gaGlobalOptions.resolutions;
+                             //   var cost = 0.75;
+                           //  var   gridResolutions = [280.001, 140, 70, 28, 14, 7, 2.8, 1.4, 0.7, 0.28, 0.14];
+                              //   gridResolutions = gridResolutions.map(x => x * cost);
                                 var subdomains = dfltWmsSubdomains;
                                 olSource = layer.olSource = new ol.source.TileWMS({
                                     urls: getImageryUrls(getWmsTpl(layer.wmsUrl), subdomains),
@@ -1789,8 +1793,12 @@ goog.require('ga_urlutils_service');
                                     //---START---
                                     crossOrigin: crossOrigin,
                                     //--END---
-                                    tileGrid: gaTileGrid.get(layer.resolutions,
-                                        layer.minResolution, 'wms'),
+                                  //  tileGrid: gaTileGrid.get(layer.resolutions,
+                                    //    layer.minResolution, 'wms'),
+                                    tileGrid: gaTileGrid.get(gridResolutions,
+                                        gridResolutions[0], 'wms'),
+                                 //   extent: extent,
+
                                     tileLoadFunction: tileLoadFunction,
                                     wrapX: false
                                 });

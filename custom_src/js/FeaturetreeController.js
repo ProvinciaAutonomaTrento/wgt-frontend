@@ -28,7 +28,7 @@ goog.require('ga_print_service');
     $scope.options.popup= {
       title:'object_information',
       showPrint:true,
-      print: print,
+      print: $scope.print,
       help:'68',
       close: function(){
         console.log('close');
@@ -68,7 +68,7 @@ goog.require('ga_print_service');
     $scope.printInProgress = false;
     $scope.printProgressPercentage = 0;
     $scope.print = function() {
-
+      console.log('print');
       var printElementsTotal = $scope.options.nbFeatures;
       if (printElementsTotal === 0) {
         return;
@@ -129,6 +129,7 @@ goog.require('ga_print_service');
                   ', status: ' + status + '<div>', 'failure');
       };
 
+        console.log('print2');
       for (var bodId in featureTree) {
         printLayers[bodId] = {
           head: null,

@@ -8,7 +8,7 @@ goog.require('ga_print_service');
   ]);
 
   module.controller('GaFeaturetreeController', function($http, $scope,
-      $timeout, $translate, $window, gaGlobalOptions, gaPrintService) {
+      $timeout, $translate, $window, gaGlobalOptions, gaPrintService,$log) {
 
     var featureTreeId = '#featuretree-popup';
     // List of layers using an extendHtmlPoup for the print instead of htmlPopup
@@ -55,7 +55,7 @@ goog.require('ga_print_service');
     $scope.printInProgress = false;
     $scope.printProgressPercentage = 0;
     $scope.print = function() {
-
+        $log.debug("elements to print "+ $scope.options.nbFeatures)
       var printElementsTotal = $scope.options.nbFeatures;
       if (printElementsTotal === 0) {
         return;

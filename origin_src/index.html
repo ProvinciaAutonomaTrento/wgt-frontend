@@ -680,7 +680,7 @@ manifest="geoadmin.appcache"
     //+++START+++
     var getResolutionsFromScales = function(scales){
        var units = ol.proj.get('${default_epsg}').getUnits();
-       var dpi = 25.4 / 0.28;
+       var dpi = 96;
        var mpu = ol.proj.METERS_PER_UNIT[units];
        var resolutions = [];
        for (var i=0; i<scales.length; i++){

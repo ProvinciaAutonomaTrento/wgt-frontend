@@ -26,6 +26,7 @@ goog.provide('ga_print_service');
 
     this.$get = function($window, $translate) {
       var Print = function() {
+
         this.htmlPrintout = function(body, head, onLoad) {
           $window.printOnLoad = onLoad || function(windowPrint) {
             windowPrint.print();
