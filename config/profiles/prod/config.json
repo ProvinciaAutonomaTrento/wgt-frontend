@@ -6,7 +6,7 @@
     "default_topic_id": "1",
     "translation_fallback_code": "it",
     "languages": ["it", "de", "en"],
-    "default_extent": [582660, 5035773, 752144, 5165402],
+    "default_extent": [582660, 5046700, 752144, 5176029],
     "default_level_of_detail": "9",
     "default_scale":  500000,
     "scales": [1000000, 500000, 250000, 100000, 50000, 25000, 10000, 5000, 2500, 1000, 500],

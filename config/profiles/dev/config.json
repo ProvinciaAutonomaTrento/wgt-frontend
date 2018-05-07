@@ -6,7 +6,7 @@
     "default_topic_id": "1",
     "translation_fallback_code": "it",
     "languages": ["it", "de", "en"],
-    "default_extent": [582660, 5035773, 752144, 5165402],
+    "default_extent": [582660, 5046700, 752144, 5176029],
     "default_level_of_detail": "9",
     "default_scale":  500000,
     "scales": [1000000, 500000, 250000, 100000, 50000, 25000, 10000, 5000, 2500, 1000, 500],
@@ -20,7 +20,7 @@
     "public_url_regexp": "^(http|https):\/\/localhost:3000\/wgt\/.*",
     "default_epsg": "EPSG:25832",
     "default_epsg_label": "ETRS 89",
-    "default_epsg_extend": [582660, 5035773, 752144, 5165402],
+    "default_epsg_extend": [581423, 5046000, 811876, 5228180],
     "href_logo": "http://www.provincia.tn.it/",
     "copyright_href": "http://www.territorio.provincia.tn.it/portal/server.pt/community/s_i_a_t/255/licenza_d'uso/255620"
 }

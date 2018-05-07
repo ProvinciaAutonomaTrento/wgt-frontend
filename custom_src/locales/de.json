@@ -386,6 +386,7 @@
   "file_is_not_gpx": "Dieses File ist keine GPX Datei.",
   "import_gpx": "GPX Import",
   "load_shp": "SHP laden",
+  "max_shp_dimension": "Maximale Größe für Shapefile: 8MB",
   "shpimport_tooltip": "Importieren Sie externe SHP Datenquellen",
   "file_is_not_shp": "Dieses File ist keine SHP Datei.",
   "import_shp": "SHP Import"
