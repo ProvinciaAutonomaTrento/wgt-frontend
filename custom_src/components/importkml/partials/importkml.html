@@ -19,10 +19,10 @@
         <input type="file" name="file"/>
         <!-- Button use to open the file chooser of the input file -->
         <input class="form-control" type="text" readonly
-               value="{{(file.name) ? file.name + ', ' + file.size/1000 + ' KB' : ''}}"
+               value="{{(file.name) ? file.name + ', ' + file.size/1000 + ' ko' : ''}}"
                placeholder="{{'no_file' | translate}}"/>
         <span class="input-group-btn">
-          <button type="button" class="btn btn-default ga-import-shp-browse" translate>browse</button>
+          <button type="button" class="btn btn-default ga-import-kml-browse" translate>browse</button>
         </span>
       </div>
     </div>
@@ -38,11 +38,11 @@
 </div>
 
 <div class="tabbable-footer" >
-  <button type="button" class="btn btn-default ga-import-shp-load" ng-click="loadSHP()" translate>load_shp</button>
+  <button type="button" class="btn btn-default ga-import-kml-load" ng-click="loadKML()" translate>load_kml</button>
   <div translate>max_file_dimension</div>
   <!-- TODO: Display information about the uploaded file and the upload process -->
-  <div class="ga-import-shp-result">
-    <div class="ga-import-shp-abort icon-remove-sign" ng-click="cancel()"
+  <div class="ga-import-kml-result">
+    <div class="ga-import-kml-abort icon-remove-sign" ng-click="cancel()"
       ng-show="(0 < progress && progress < 100)" ></div>{{userMessage}}
     <div ng-if="!isIE" class="progress progress-striped active"
       ng-show="(0 < progress && progress < 100)">
