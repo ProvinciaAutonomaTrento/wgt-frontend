@@ -338,20 +338,29 @@ goog.require('ga_time_service');
 
             if (textStyle && textStyle.getText()) {
                 literal.label = textStyle.getText();
-                literal.labelAlign = textStyle.getTextAlign();
 
-                if (textStyle.getFill()) {
-                    var fillColor = ol.color.asArray(textStyle.getFill().getColor());
-                    literal.fontColor = toHexa(fillColor);
-                }
+                literal.labelAlign = "cm";
+                literal.fontFamily = "sans-serif";
+                literal.fontSize = "10px";
+                literal.fontStyle = "normal";
+                literal.fontWeight = "bold";
+                literal.fontColor = "#ff0000";
+                literal.haloColor = "#ffffff";
+                literal.haloOpacity = "1.0";
+                literal.haloRadius = "1.0";
 
-                if (textStyle.getFont()) {
-                    var fontValues = textStyle.getFont().split(' ');
-                    // Fonts managed by print server: COURIER, HELVETICA, TIMES_ROMAN
-                    literal.fontFamily = fontValues[2].toUpperCase();
-                    literal.fontSize = parseInt(fontValues[1]);
-                    literal.fontWeight = fontValues[0];
-                }
+                // literal.labelAlign = textStyle.getTextAlign();
+                // if (textStyle.getFill()) {
+                //     var fillColor = ol.color.asArray(textStyle.getFill().getColor());
+                //     literal.fontColor = toHexa(fillColor);
+                // }
+                // if (textStyle.getFont()) {
+                //     var fontValues = textStyle.getFont().split(' ');
+                //     // Fonts managed by print server: COURIER, HELVETICA, TIMES_ROMAN
+                //     literal.fontFamily = fontValues[2].toUpperCase();
+                //     literal.fontSize = parseInt(fontValues[1]);
+                //     literal.fontWeight = fontValues[0];
+                // }
 
                 /* TO FIX: Not managed by the print server
                  if (textStyle.getStroke()) {
@@ -914,7 +923,7 @@ goog.require('ga_time_service');
             // Transform layers to literal
             layers.forEach(function (layer) {
                 if (layer.visible && (!layer.timeEnabled ||
-                        angular.isDefined(layer.time))) {
+                    angular.isDefined(layer.time))) {
 
                     // Get all attributions to diaplay
                     var attribution = gaAttribution.getTextFromLayer(layer);
@@ -1015,49 +1024,112 @@ goog.require('ga_time_service');
                 var offset = 5 * resolution;
 
                 if (center) {
-                    var encOverlayLayer = {
-                        'type': 'Vector',
-                        'styles': {
-                            '1': { // Style for marker position
-                                'externalGraphic': $scope.options.markerUrl,
-                                'graphicWidth': 20,
-                                'graphicHeight': 30,
-                                // the icon is not perfectly centered in the image
-                                // these values must be the same in map.less
-                                'graphicXOffset': -12,
-                                'graphicYOffset': -30
-                            },
-                            '2': { // Style for measure tooltip
-                                'externalGraphic': $scope.options.bubbleUrl,
-                                'graphicWidth': 97,
-                                'graphicHeight': 27,
-                                'graphicXOffset': -46,
-                                'graphicYOffset': -27,
-                                'label': $(elt).text(),
-                                'labelXOffset': 0,
-                                'labelYOffset': 18,
-                                'fontColor': '#ffffff',
-                                'fontSize': 12,
-                                'fontWeight': 'bold'
-                            }
-                        },
-                        'styleProperty': '_gx_style',
-                        'geoJson': {
-                            'type': 'FeatureCollection',
-                            'features': [{
-                                'type': 'Feature',
-                                'properties': {
-                                    '_gx_style': ($(elt).text() ? 2 : 1)
+                    var encOverlayLayer;
+                    if (mapfish_version == 2) {
+                        encOverlayLayer = {
+                            'type': 'Vector',
+                            'styles': {
+                                '1': { // Style for marker position
+                                    'externalGraphic': $scope.options.markerUrl,
+                                    'graphicWidth': 20,
+                                    'graphicHeight': 30,
+                                    // the icon is not perfectly centered in the image
+                                    // these values must be the same in map.less
+                                    'graphicXOffset': -12,
+                                    'graphicYOffset': -30
                                 },
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': [center[0], center[1], 0]
+                                '2': { // Style for measure tooltip
+                                    'externalGraphic': $scope.options.bubbleUrl,
+                                    'graphicWidth': 97,
+                                    'graphicHeight': 27,
+                                    'graphicXOffset': -46,
+                                    'graphicYOffset': -27,
+                                    'label': $(elt).text(),
+                                    'labelXOffset': 0,
+                                    'labelYOffset': 18,
+                                    'fontColor': '#ffffff',
+                                    'fontSize': 12,
+                                    'fontWeight': 'bold'
                                 }
-                            }]
-                        },
-                        'name': 'drawing',
-                        'opacity': 1
-                    };
+                            },
+                            'styleProperty': '_gx_style',
+                            'geoJson': {
+                                'type': 'FeatureCollection',
+                                'features': [{
+                                    'type': 'Feature',
+                                    'properties': {
+                                        '_gx_style': ($(elt).text() ? 2 : 1)
+                                    },
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [center[0], center[1], 0]
+                                    }
+                                }]
+                            },
+                            'name': 'drawing',
+                            'opacity': 1
+                        };
+                    }
+                    if (mapfish_version == 3) {
+                        encOverlayLayer = {
+                            'type': 'geojson',
+                            'style': {
+                                '[_gx_style = 1]': { // Style for marker position
+                                    "symbolizers": [
+                                        {
+                                            'externalGraphic': $scope.options.markerUrl,
+                                            'graphicWidth': 20,
+                                            'graphicHeight': 30,
+                                            // the icon is not perfectly centered in the image
+                                            // these values must be the same in map.less
+                                            'graphicXOffset': -12,
+                                            'graphicYOffset': -30,
+                                            "fillOpacity": 1,
+                                            "strokeOpacity": 0,
+                                            "type": "point",
+                                            "zIndex": 30
+                                        }
+                                    ]
+                                },
+                                '[_gx_style = 2]': { // Style for measure tooltip
+                                    "symbolizers": [
+                                        {
+                                            "type": "text",
+                                            "label": $(elt).text(),
+                                            "labelAlign": "cm",
+                                            "labelXOffset": "0.0",
+                                            "labelYOffset": "10.0",
+                                            "fontColor": "#ffffff",
+                                            "fontSize": "10px",
+                                            "fontFamily": "sans-serif",
+                                            "fontStyle": "normal",
+                                            "fontWeight": "bold",
+                                            "haloColor": "#ff0000",
+                                            "haloOpacity": "1.0",
+                                            "haloRadius": "2.0",
+                                            "zIndex": 30
+                                        }
+                                    ]
+                                },
+                                "version": "2"
+                            },
+                            'geoJson': {
+                                'type': 'FeatureCollection',
+                                'features': [{
+                                    'type': 'Feature',
+                                    'properties': {
+                                        '_gx_style': ($(elt).text() ? 2 : 1),
+                                        'type': 'drawing'
+                                    },
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [center[0], center[1], 0]
+                                    }
+                                }]
+                            },
+                            'opacity': 1
+                        };
+                    }
                     encLayers.push(encOverlayLayer);
                 }
             });
