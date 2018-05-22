@@ -15,15 +15,8 @@ goog.require('ga_time_service');
         'ga_attribution_service'
     ]);
 
-    module.controller('GaPrintDirectiveController', function ($rootScope, $scope,
-                                                              $http, $q, $window, $translate, $timeout, gaLayers, gaMapUtils,
-                                                              gaPermalink, gaBrowserSniffer, gaWaitCursor, gaPrintStyleService,
-                                                              gaTime, gaAttribution
-                                                              //+++START+++
-        , gaGlobalOptions
-                                                              //+++END+++
-    ) {
-
+    module.controller('GaPrintDirectiveController',
+        function ($rootScope, $scope, $http, $q, $window, $translate, $timeout, $sce, gaPopup, gaLayers, gaMapUtils, gaPermalink, gaBrowserSniffer, gaWaitCursor, gaPrintStyleService, gaTime, gaAttribution, gaGlobalOptions) {
 
         var pdfLegendsToDownload = [];
         var pdfLegendString = '_big.pdf';
@@ -34,6 +27,7 @@ goog.require('ga_time_service');
         var UNITS_RATIO = 39.37; // inches per meter
         var POLL_INTERVAL = 2000; //interval for multi-page prints (ms)
         var POLL_MAX_TIME = 600000; //ms (10 minutes)
+        var map;
         var layersYears = [];
         var canceller;
         var currentMultiPrintId;
@@ -877,6 +871,7 @@ goog.require('ga_time_service');
             $scope.options.progress = '';
             // http://mapfish.org/doc/print/protocol.html#print-pdf
             var view = $scope.map.getView();
+            map = $scope.map;
             var proj = view.getProjection();
             var lang = $translate.use();
             var defaultPage = {};
@@ -1340,7 +1335,6 @@ goog.require('ga_time_service');
                 printUrl = gaGlobalOptions.apiUrl + "/print/create";
                 //+++END+++
 
-
                 var http = $http.post(printUrl,
                     spec, {
                         timeout: canceller.promise,
@@ -1385,29 +1379,30 @@ goog.require('ga_time_service');
                     $scope.options.printing = false;
                     return;
                     //+++END+++
-
-
-                    // if (movieprint) {
-                    //   //start polling process
-                    //   var pollUrl = $scope.options.printPath + 'progress?id=' +
-                    //     data.idToCheck;
-                    //   currentMultiPrintId = data.idToCheck;
-                    //   startPollTime = new Date();
-                    //   pollErrors = 0;
-                    //   pollMulti(pollUrl);
-                    // } else {
-                    //   //---START---
-                    //   //$scope.downloadUrl(data.getURL);
-                    //   //---END---
-                    //   //+++START+++
-                    //   var url = gaGlobalOptions.ogcproxyUrl.replace('{url}', data.getURL).replace('{type}', 'print');
-                    //   $scope.downloadUrl(url);
-                    //   //+++END+++
-                    // }
                 }).error(function () {
+                    showErrorPopup();
                     $scope.options.printing = false;
                 });
             });
+        };
+
+        var showErrorPopup = function () {
+            var htmlpopup = '<div class="htmlpopup-container">' +
+                '<div class="htmlpopup-content" translate>print_error</div>' +
+                '</div>';
+            var popup = gaPopup.create({
+                className: 'ga-tooltip',
+                title: 'error',
+                content: htmlpopup
+            });
+            popup.open();
+            //always reposition element when newly opened
+            if (!gaBrowserSniffer.mobile) {
+                popup.element.css({
+                    left: ((map.getSize()[0] / 2) -
+                        (parseFloat(popup.element.css('max-width')) / 2))
+                });
+            }
         };
 
         var getDpi = function (layoutName, dpiConfig) {

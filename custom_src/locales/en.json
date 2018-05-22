@@ -391,5 +391,6 @@
   "max_file_dimension": "Maximum size of file: 8MB",
   "shpimport_tooltip": "Import external SHP data sources",
   "file_is_not_shp": "The file is not a SHP file.",
-  "import_shp": "SHP import"
+  "import_shp": "SHP import",
+  "print_error": "An error occurred generating the PDF file."
 }

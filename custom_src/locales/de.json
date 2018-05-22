@@ -375,6 +375,7 @@
   "can_not_view_following_layers": "Sie können die folgenden Schichten nicht anzeigen:",
   "draw_linepolygon": "Zeichnen",
 
+
   "cadastre_results_header": "Zum parzellieren",
   "species_results_header": "Spezies",
   "AdD": "Employee Authentication",
@@ -389,5 +390,6 @@
   "max_file_dimension": "Maximale Größe für File: 8MB",
   "shpimport_tooltip": "Importieren Sie externe SHP Datenquellen",
   "file_is_not_shp": "Dieses File ist keine SHP Datei.",
-  "import_shp": "SHP Import"
+  "import_shp": "SHP Import",
+  "print_error": "Beim Generieren der PDF-Datei ist ein Fehler aufgetreten."
 }
