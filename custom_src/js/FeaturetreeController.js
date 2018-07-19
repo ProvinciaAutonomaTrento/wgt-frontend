@@ -1,53 +1,41 @@
 goog.provide('ga_featuretree_controller');
 
 goog.require('ga_print_service');
-(function() {
+(function () {
 
     var module = angular.module('ga_featuretree_controller', [
         'ga_print_service'
     ]);
 
-    module.controller('GaFeaturetreeController', function($http, $scope,
-                                                          $timeout, $translate, $window, gaGlobalOptions, gaPrintService) {
+    module.controller('GaFeaturetreeController', function ($http, $scope,
+                                                           $timeout, $translate, $window, gaGlobalOptions, gaPrintService) {
 
         var featureTreeId = '#featuretree-popup';
         // List of layers using an extendHtmlPoup for the print instead of htmlPopup
         var extended = {
-            'ch.bazl.luftfahrthindernis' : true
+            'ch.bazl.luftfahrthindernis': true
         };
 
         $scope.options = {
-            msUrl: gaGlobalOptions.cachedApiUrl + '/rest/services/all/MapServer',
+            msUrl: gaGlobalOptions.cachedApiUrl + '/MapServer',
             featuresShown: false,
             hasMoreResults: false,
             nbFeatures: 0,
             max: 200
         };
 
-        //+++START+++
-        $scope.options.popup= {
-            title:'object_information',
-            showPrint:true,
-            print: $scope.print,
-            help:'68',
-            close: function(){
-                console.log('close');
-                $scope.options.nbFeatures = 0;
-            }
-        }
-        //+++END+++
 
-        $scope.getItemText = function() {
+        $scope.getItemText = function () {
             return '(' + (($scope.options.hasMoreResults) ? '+' : '') +
                 $scope.options.nbFeatures + ')';
 
         };
         // When the results of query tool are updated, we collapse/expand the
         // features tree accordion, then we update the feature tree
-        $scope.$on('gaQueryResultsUpdated', function(evt, featuresByLayer) {
+        $scope.$on('gaQueryResultsUpdated', function (evt, featuresByLayer) {
             evt.stopPropagation();
             var show = false, nbFeatures = 0, hasMoreResults = false;
-            angular.forEach(featuresByLayer, function(layer) {
+            angular.forEach(featuresByLayer, function (layer) {
                 if (layer.features && layer.features.length > 0) {
                     show = true;
                     hasMoreResults = (hasMoreResults || layer.hasMoreResults);
@@ -62,12 +50,11 @@ goog.require('ga_print_service');
         });
 
 
-
         // Print popup stuff
         var featureTree, winPrint, useNewTab;
         $scope.printInProgress = false;
         $scope.printProgressPercentage = 0;
-        $scope.print = function() {
+        $scope.print = function () {
             console.log('print');
             var printElementsTotal = $scope.options.nbFeatures;
             if (printElementsTotal === 0) {
@@ -101,7 +88,7 @@ goog.require('ga_print_service');
             $scope.printInProgress = true;
             $scope.printProgressPercentage = 0;
 
-            var printElementLoaded = function(html, bodId) {
+            var printElementLoaded = function (html, bodId) {
                 if (/(<html|<head|<body)/i.test(html)) { // extendedHtmlPopup
                     var head = /<head[^>]*>((.|[\n\r])*)<\/head>/.exec(html)[1];
                     var body = /<body[^>]*>((.|[\n\r])*)<\/body>/.exec(html)[1];
@@ -136,21 +123,28 @@ goog.require('ga_print_service');
                     body: ''
                 };
                 var layer = featureTree[bodId];
-                var layerUrl = $scope.options.msUrl + '/' + bodId;
+                var layerUrl = $scope.options.msUrl + '/htmlPopup';
 
                 for (var i in layer.features) {
-                    $http.get(layerUrl + '/' + layer.features[i].id + '/' +
-                        (extended[bodId] ? 'extendedHtmlPopup' : 'htmlPopup'), {
-                        params: {
-                            lang: lang
-                        }
-                    }).success(onSucccessFunction)
+                    $http.get(
+                        layerUrl,
+                        {
+                            params: {
+                                lang: lang,
+                                layer: bodId,
+                                feature: layer.features[i].id,
+                                coord: [1, 1],
+                                imageDisplay: [1, 1, 1],
+                                mapExtent:[0,0,1,1]
+
+                            }
+                        }).success(onSucccessFunction)
                         .error(onErrorFunction);
                 }
             }
         };
 
-        var printFinished = function(printLayers) {
+        var printFinished = function (printLayers) {
             $scope.printInProgress = false;
             $scope.printProgressPercentage = 0;
             var head = '';
@@ -162,11 +156,12 @@ goog.require('ga_print_service');
                 body += printLayers[bodId].body;
             }
             gaPrintService.htmlPrintout(body, head || undefined,
-                (useNewTab) ? function() {} : undefined);
+                (useNewTab) ? function () {
+                } : undefined);
         };
 
         var ftPopup = $(featureTreeId);
-        $scope.$on('gaUpdateFeatureTree', function(evt, tree) {
+        $scope.$on('gaUpdateFeatureTree', function (evt, tree) {
             featureTree = tree;
 
             // Open popup when it's reduced
@@ -178,11 +173,25 @@ goog.require('ga_print_service');
 
         });
 
-        $scope.$on('gaGetMoreFeatureTree', function(evt, layer) {
+        $scope.$on('gaGetMoreFeatureTree', function (evt, layer) {
             $scope.$broadcast('gaQueryMore', layer.bodId, layer.offset +
                 $scope.options.max);
             evt.stopPropagation();
         });
+
+        //+++START+++
+        $scope.options.popup = {
+            title: 'object_information',
+            showPrint: true,
+            print: $scope.print,
+            help: '68',
+            close: function () {
+                console.log('close');
+                $scope.options.nbFeatures = 0;
+            }
+        }
+        //+++END+++
+
 
     });
 })();
