@@ -117,6 +117,7 @@ goog.require('ga_print_service');
             };
 
             console.log('print2');
+            const promiseArray = [];
             for (var bodId in featureTree) {
                 printLayers[bodId] = {
                     head: null,
@@ -126,7 +127,7 @@ goog.require('ga_print_service');
                 var layerUrl = $scope.options.msUrl + '/htmlPopup';
 
                 for (var i in layer.features) {
-                    $http.get(
+                    promiseArray.push($http.get(
                         layerUrl,
                         {
                             params: {
@@ -138,10 +139,42 @@ goog.require('ga_print_service');
                                 mapExtent:[0,0,1,1]
 
                             }
-                        }).success(onSucccessFunction)
-                        .error(onErrorFunction);
+                        }));
+                    /**.success(onSucccessFunction)
+                        .error(onErrorFunction);*/
                 }
             }
+
+
+            const recFunc = (promiseArray, index) => {
+
+                if (promiseArray.length === index) {
+                    return;
+                }
+                console.log('Processing index', index);
+                promiseArray[index]
+                    .success(function onSuccessFunction(data, status, headers, config) {
+                        printElementLoaded(data, bodId);
+                        index = index + 1;
+                        recFunc(promiseArray, index);
+                    })
+                    .error( function onErrorFunction(data, status, headers, config) {
+                        printElementLoaded('<div>' +
+                            'There was a problem loading this feature. Layer: ' + bodId +
+                            ', feature: ' + layer.features[i].id +
+                            ', status: ' + status + '<div>', 'failure');
+                        index = index + 1;
+                        recFunc(promiseArray, index);
+                    });
+
+            };
+
+
+            // Implementing a semaphore for promise call
+            recFunc(promiseArray, 0);
+
+
+
         };
 
         var printFinished = function (printLayers) {
@@ -175,7 +208,7 @@ goog.require('ga_print_service');
 
         $scope.$on('gaGetMoreFeatureTree', function (evt, layer) {
             $scope.$broadcast('gaQueryMore', layer.bodId, layer.offset +
-                $scope.options.max);
+                $scope.options.max,  $scope.options.max+1);
             evt.stopPropagation();
         });
 

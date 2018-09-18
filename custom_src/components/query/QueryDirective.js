@@ -203,6 +203,7 @@ goog.require('ga_storage_service');
 
     // Search callbacks
     var onSearchSuccess = function(layerFeatures, layerBodId, offset) {
+
       var featuresByLayer = $scope.featuresByLayer[layerBodId] ||
           {features: []};
       var features = (offset) ? featuresByLayer.features : [];
@@ -232,7 +233,9 @@ goog.require('ga_storage_service');
     };
 
     // Search by geometry using feature identify servioce
-    $scope.searchByGeometry = function(layerBodId, offset) {
+    $scope.searchByGeometry = function(layerBodId, offset,featureCount) {
+        //DG
+        $scope.featuresByLayer = {};
       $scope.queryType = 0;
 
       if ($scope.tooltipLayers.length == 0) {
@@ -245,7 +248,8 @@ goog.require('ga_storage_service');
         var common = angular.extend({
           lang: $translate.use(),
           geometryFormat: 'geojson',
-          offset: offset
+          offset: offset,
+          featureCount:featureCount
         }, getGeometryParams());
 
         var layersRequested = $scope.tooltipLayers;
@@ -286,14 +290,14 @@ goog.require('ga_storage_service');
     };
 
     // Search by attributes using feature identify service
-    $scope.searchByAttributes = function(layerBodId, offset) {
+    $scope.searchByAttributes = function(layerBodId, offset,featureCount) {
       $scope.queryType = 1;
       $scope.loading = true;
 
       var params = getParamsByLayer($scope.filters);
       if (params.length == 0) {
         if ($scope.useBbox) {
-          $scope.searchByGeometry();
+          $scope.searchByGeometry(undefined,offset,featureCount);
         } else {
           resetResults();
         }
@@ -303,7 +307,8 @@ goog.require('ga_storage_service');
       var common = {
         lang: $translate.use(),
         geometryFormat: 'geojson',
-        offset: offset
+        offset: offset,
+        featureCount:featureCount
       };
 
       if ($scope.useBbox) {
@@ -330,12 +335,12 @@ goog.require('ga_storage_service');
     };
 
     // Launch a search according to the active tab
-    $scope.search = function(layerBodId, offset) {
+    $scope.search = function(layerBodId, offset,featureCount) {
       resetResults('', layerBodId);
       if ($scope.queryType == 0) {
-        $scope.searchByGeometry(layerBodId, offset);
+        $scope.searchByGeometry(layerBodId, offset,featureCount);
       } else {
-        $scope.searchByAttributes(layerBodId, offset);
+        $scope.searchByAttributes(layerBodId, offset,featureCount);
       }
     };
 
@@ -417,8 +422,8 @@ goog.require('ga_storage_service');
       }
     });
 
-    $scope.$on('gaQueryMore', function(evt, layerId, offset) {
-      $scope.search(layerId, offset);
+    $scope.$on('gaQueryMore', function(evt, layerId, offset,featureCount) {
+      $scope.search(layerId, offset,featureCount);
     });
     $scope.$on('gaLayersTranslationChange', function(evt, newLayers) {
       // We refresh the labels here because the layer's label is not updated
@@ -476,9 +481,9 @@ goog.require('ga_storage_service');
             } else {
               if (scope.isActive && scope.queryType == 1 &&
                   scope.filters[0].value) {
-                scope.searchByAttributes();
+                scope.searchByAttributes(undefined,0,scope.options.max+1);
               } else {
-                scope.searchByGeometry();
+                scope.searchByGeometry(undefined,0,scope.options.max+1);
               }
               scope.isActive = true;
             }
