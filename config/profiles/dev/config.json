@@ -2,7 +2,7 @@
     "version": "",
     "versionslashed": "",
     "apache_base_path": "",
-    "api_url": "https://webgis-test.infotn.it/wgt/services",
+    "api_url": "http://localhost:19080/wgt/services",
     "default_topic_id": "1",
     "translation_fallback_code": "it",
     "languages": ["it", "de", "en"],

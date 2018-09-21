@@ -141,7 +141,7 @@ goog.require('ga_print_service');
                             }
                         }));
                     /**.success(onSucccessFunction)
-                        .error(onErrorFunction);*/
+                     .error(onErrorFunction);*/
                 }
             }
 
