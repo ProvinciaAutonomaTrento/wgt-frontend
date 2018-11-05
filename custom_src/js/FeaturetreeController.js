@@ -117,7 +117,7 @@ goog.require('ga_print_service');
             };
 
             console.log('print2');
-            const promiseArray = [];
+            var promiseArray = [];
             for (var bodId in featureTree) {
                 printLayers[bodId] = {
                     head: null,
@@ -145,8 +145,8 @@ goog.require('ga_print_service');
                 }
             }
 
-
-            const recFunc = (promiseArray, index) => {
+            var recFunc = function (promiseArray, index) {
+                // const recFunc = (promiseArray, index) => {
 
                 if (promiseArray.length === index) {
                     return;
@@ -169,11 +169,8 @@ goog.require('ga_print_service');
 
             };
 
-
             // Implementing a semaphore for promise call
             recFunc(promiseArray, 0);
-
-
 
         };
 
