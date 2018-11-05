@@ -189,12 +189,12 @@ goog.require('ga_storage_service');
 
         var getGeometryParams = function() {
             var imgDisplay = $scope.map.getSize().concat([96]).join(',');
-            var mapExtent = $scope.map.getView().calculateExtent(
-                $scope.map.getSize()).join(',');
+            var mapExtent = $scope.map.getView().calculateExtent($scope.map.getSize()).join(',');
             var geom = $scope.geometry.getExtent().join(',');
+
             return {
                 geometry: geom,
-                geometryType: 'esriGeometryEnvelope',
+                geometryType: 'geometryBox',
                 mapExtent: mapExtent,
                 imageDisplay: imgDisplay,
                 tolerance: 5
@@ -265,6 +265,14 @@ goog.require('ga_storage_service');
                     ];
                 }
                 angular.forEach(layersRequested, function(layer) {
+
+                    if (layer.wmsSource !== "internal" && layer.wmsUrl.includes("/geoserver/")) {
+                        var lowLeftPixel = $scope.map.getPixelFromCoordinate(new Array($scope.geometry.getExtent()[0],$scope.geometry.getExtent()[1]));
+                        var upRightPixel = $scope.map.getPixelFromCoordinate(new Array($scope.geometry.getExtent()[2],$scope.geometry.getExtent()[3]));
+                        common.geometry = lowLeftPixel + "," + upRightPixel;
+                    } else {
+                        common.geometry = $scope.geometry.getExtent().join(',');
+                    }
 
                     //+++START+++
                     var prms = angular.extend({ timeInstant: getYear(layer.time) }, common);
@@ -342,8 +350,8 @@ goog.require('ga_storage_service');
 
         // Launch a search according to the active tab
         $scope.search = function(layerBodId, offset,featureCount,queryMore) {
-          //DG questo if e questo parametro è mio
-             if (!queryMore){
+            //DG questo if e questo parametro è mio
+            if (!queryMore){
                 resetResults('', layerBodId);
             }
             if ($scope.queryType == 0) {

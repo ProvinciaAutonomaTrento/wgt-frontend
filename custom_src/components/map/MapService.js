@@ -288,6 +288,14 @@ goog.require('ga_urlutils_service');
                         set: function (val) {
                             this.set('wmsSource', val);
                         }
+                    },
+                    wmsUrl: {
+                        get: function () {
+                            return this.get('wmsUrl');
+                        },
+                        set: function (val) {
+                            this.set('wmsUrl', val);
+                        }
                     }
                 });
             };
@@ -333,8 +341,8 @@ goog.require('ga_urlutils_service');
                         // event. to avoid a 'false' touchmove event to be dispatched,
                         // we test if the pointer effectively moved.
                         if (down && (!gaBrowserSniffer.msie ||
-                                evt.clientX != down.clientX ||
-                                evt.clientY != down.clientY)) {
+                            evt.clientX != down.clientX ||
+                            evt.clientY != down.clientY)) {
                             moving = true;
                         }
                     };
@@ -420,7 +428,7 @@ goog.require('ga_urlutils_service');
                     request: 'GetMap',
                     crs: 'CRS:84',
                     bbox: '{westProjected},{southProjected},' +
-                    '{eastProjected},{northProjected}',
+                        '{eastProjected},{northProjected}',
                     width: '256',
                     height: '256',
                     styles: 'default',
@@ -451,7 +459,7 @@ goog.require('ga_urlutils_service');
 
                     var layer = new ol.layer.Image({
                         id: 'WMS||' + options.label + '||' + options.url + '||' +
-                        params.LAYERS,
+                            params.LAYERS,
                         url: options.url,
                         type: 'WMS',
                         opacity: options.opacity,
@@ -644,7 +652,7 @@ goog.require('ga_urlutils_service');
                 // TODO Handle GeometryCollection displaying name on the first Point
                 // geometry.
                 if (style && (geom instanceof ol.geom.Point ||
-                        geom instanceof ol.geom.MultiPoint)) {
+                    geom instanceof ol.geom.MultiPoint)) {
                     var image = style.getImage();
                     var text = null;
 
@@ -691,8 +699,8 @@ goog.require('ga_urlutils_service');
                     feature.setStyle(gaStyleFactory.getFeatureStyleFunction('measure'));
                     // Remove image and text styles for polygons and lines
                 } else if (!(geom instanceof ol.geom.Point ||
-                        geom instanceof ol.geom.MultiPoint ||
-                        geom instanceof ol.geom.GeometryCollection)) {
+                    geom instanceof ol.geom.MultiPoint ||
+                    geom instanceof ol.geom.GeometryCollection)) {
                     styles = [new ol.style.Style({
                         fill: style.getFill(),
                         stroke: style.getStroke(),
@@ -996,7 +1004,7 @@ goog.require('ga_urlutils_service');
                 // TODO Handle GeometryCollection displaying name on the first Point
                 // geometry.
                 if (style && (geom instanceof ol.geom.Point ||
-                        geom instanceof ol.geom.MultiPoint)) {
+                    geom instanceof ol.geom.MultiPoint)) {
                     var image = style.getImage();
                     var text = null;
 
@@ -1043,8 +1051,8 @@ goog.require('ga_urlutils_service');
                     feature.setStyle(gaStyleFactory.getFeatureStyleFunction('measure'));
                     // Remove image and text styles for polygons and lines
                 } else if (!(geom instanceof ol.geom.Point ||
-                        geom instanceof ol.geom.MultiPoint ||
-                        geom instanceof ol.geom.GeometryCollection)) {
+                    geom instanceof ol.geom.MultiPoint ||
+                    geom instanceof ol.geom.GeometryCollection)) {
                     styles = [new ol.style.Style({
                         fill: style.getFill(),
                         stroke: style.getStroke(),
@@ -1593,7 +1601,7 @@ goog.require('ga_urlutils_service');
                             request: 'GetMap',
                             crs: 'CRS:84',
                             bbox: '{westProjected},{southProjected},' +
-                            '{eastProjected},{northProjected}',
+                                '{eastProjected},{northProjected}',
                             width: tileSize,
                             height: tileSize,
                             styles: 'default'
@@ -1782,9 +1790,9 @@ goog.require('ga_urlutils_service');
                         } else {
                             if (!olSource) {
                                 var gridResolutions = gaGlobalOptions.resolutions;
-                             //   var cost = 0.75;
-                           //  var   gridResolutions = [280.001, 140, 70, 28, 14, 7, 2.8, 1.4, 0.7, 0.28, 0.14];
-                              //   gridResolutions = gridResolutions.map(x => x * cost);
+                                //   var cost = 0.75;
+                                //  var   gridResolutions = [280.001, 140, 70, 28, 14, 7, 2.8, 1.4, 0.7, 0.28, 0.14];
+                                //   gridResolutions = gridResolutions.map(x => x * cost);
                                 var subdomains = dfltWmsSubdomains;
                                 olSource = layer.olSource = new ol.source.TileWMS({
                                     urls: getImageryUrls(getWmsTpl(layer.wmsUrl), subdomains),
@@ -1793,11 +1801,11 @@ goog.require('ga_urlutils_service');
                                     //---START---
                                     crossOrigin: crossOrigin,
                                     //--END---
-                                  //  tileGrid: gaTileGrid.get(layer.resolutions,
+                                    //  tileGrid: gaTileGrid.get(layer.resolutions,
                                     //    layer.minResolution, 'wms'),
                                     tileGrid: gaTileGrid.get(gridResolutions,
                                         gridResolutions[0], 'wms'),
-                                 //   extent: extent,
+                                    //   extent: extent,
 
                                     tileLoadFunction: tileLoadFunction,
                                     wrapX: false
@@ -1876,6 +1884,7 @@ goog.require('ga_urlutils_service');
                         olLayer.type = layer.type;
                         olLayer.timeEnabled = layer.timeEnabled;
                         olLayer.wmsSource = layer.wmsSource;
+                        olLayer.wmsUrl = layer.wmsUrl;
                         olLayer.timestamps = layer.timestamps;
                         olLayer.geojsonUrl = layer.geojsonUrl;
                         olLayer.updateDelay = layer.updateDelay;
