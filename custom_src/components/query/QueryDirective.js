@@ -266,14 +266,6 @@ goog.require('ga_storage_service');
                 }
                 angular.forEach(layersRequested, function(layer) {
 
-                    if (layer.wmsSource !== "internal" && layer.wmsUrl.includes("/geoserver/")) {
-                        var lowLeftPixel = $scope.map.getPixelFromCoordinate(new Array($scope.geometry.getExtent()[0],$scope.geometry.getExtent()[1]));
-                        var upRightPixel = $scope.map.getPixelFromCoordinate(new Array($scope.geometry.getExtent()[2],$scope.geometry.getExtent()[3]));
-                        common.geometry = lowLeftPixel + "," + upRightPixel;
-                    } else {
-                        common.geometry = $scope.geometry.getExtent().join(',');
-                    }
-
                     //+++START+++
                     var prms = angular.extend({ timeInstant: getYear(layer.time) }, common);
                     try{ prms.CQL_FILTER = layer.getSource().getParams().CQL_FILTER; } catch(e) {};
