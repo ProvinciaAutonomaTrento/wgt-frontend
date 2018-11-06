@@ -350,40 +350,30 @@ goog.require('ga_urlutils_service');
                                     showVectorFeature(feature, layerToQuery);
                                 }
                             } else if (layerToQuery.bodId) { // queryable bod layers
-                                var tempLayer = gaLayers.getLayer(layerToQuery.bodId);
-
-                                var geomType = "geometryPoint";
-                                var geomCoord = coordinate[0] + ',' + coordinate[1];
+                                // var tempLayer = gaLayers.getLayer(layerToQuery.bodId);
+                                var coordinates = coordinate[0] + ',' + coordinate[1];
+                                var pixels = geomCoord = pixel[0] + ',' + pixel[1];
+                                var imgDisplay = size[0] + ',' + size[1] + ',96';
 
                                 // TODO: check that Resolution get the size of 1 pixel in meters...
-                                var tolerance = Math.round(scope.map.getView().getResolution() * scope.options.tolerance);
+                                var coordsBuffer = scope.map.getView().getResolution() * scope.options.tolerance;
 
-                                if (tempLayer.wmsSource !== "internal") {
-                                    if (tempLayer.wmsUrl.includes("/geoserver/")) {
-                                        geomCoord = pixel[0] + ',' + pixel[1];
-                                        geomType = "imagePixels";
-                                    }
-                                    tolerance = scope.options.tolerance;
-                                }
                                 var params = {
-                                    geometryType: geomType,
-                                    geometryFormat: 'geojson',
-                                    geometry: geomCoord,
-                                    // FIXME: make sure we are passing the right dpi here.
-                                    imageDisplay: size[0] + ',' + size[1] + ',96',
+                                    lang: $translate.use(),
+                                    layer: 'all:' + layerToQuery.bodId,
+                                    coordinates: coordinates,
+                                    coordsBuffer: coordsBuffer,
+                                    pixels: pixels,
+                                    pixelsBuffer: scope.options.tolerance,
                                     mapExtent: mapExtent.join(','),
-                                    tolerance: tolerance,
-                                    //---START---
-                                    //layers: 'all:' + layerToQuery.bodId
-                                    //---END---
-                                    //+++START+++
-                                    layer: 'all:' + layerToQuery.bodId
-                                    //+++END+++
+                                    imageDisplay: imgDisplay,
+                                    geometryType: 'Point',
+                                    geometryFormat: 'geojson'
                                 };
 
                                 //+++START+++
                                 try {
-                                    params.CQL_FILTER = layerToQuery.getSource().getParams().CQL_FILTER;
+                                    params.cqlFilter = layerToQuery.getSource().getParams().CQL_FILTER;
                                 } catch (e) {
                                     //TODO Log the error
                                 }

@@ -190,14 +190,21 @@ goog.require('ga_storage_service');
         var getGeometryParams = function() {
             var imgDisplay = $scope.map.getSize().concat([96]).join(',');
             var mapExtent = $scope.map.getView().calculateExtent($scope.map.getSize()).join(',');
-            var geom = $scope.geometry.getExtent().join(',');
+
+            var pixels = $scope.map.getPixelFromCoordinate($scope.geometry.getExtent()).join(',');
+            var coordinates = $scope.geometry.getExtent().join(',');
+
+            var pixelsBuffer = 5;
+            var coordsBuffer = $scope.map.getView().getResolution() * pixelsBuffer;
 
             return {
-                geometry: geom,
-                geometryType: 'geometryBox',
+                coordinates: coordinates,
+                coordsBuffer: coordsBuffer,
+                pixels: pixels,
+                pixelsBuffer: pixelsBuffer,
+                geometryType: 'BoundingBox',
                 mapExtent: mapExtent,
-                imageDisplay: imgDisplay,
-                tolerance: 5
+                imageDisplay: imgDisplay
             };
         };
 
@@ -268,7 +275,10 @@ goog.require('ga_storage_service');
 
                     //+++START+++
                     var prms = angular.extend({ timeInstant: getYear(layer.time) }, common);
-                    try{ prms.CQL_FILTER = layer.getSource().getParams().CQL_FILTER; } catch(e) {};
+                    try {
+                        prms.cqlFilter = layer.getSource().getParams().CQL_FILTER;
+                    } catch(e) {
+                    }
                     //+++END+++
 
                     gaQuery.getLayerIdentifyFeatures(
