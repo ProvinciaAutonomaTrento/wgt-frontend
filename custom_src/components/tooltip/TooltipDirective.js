@@ -320,7 +320,7 @@ goog.require('ga_urlutils_service');
                     var findFeatures = function (coordinate, position3d) {
                         initTooltip();
                         if (!coordinate || !ol.extent.containsCoordinate(gaMapUtils.defaultExtent,
-                                coordinate)) {
+                            coordinate)) {
                             return;
                         }
                         var size = map.getSize();
@@ -350,33 +350,30 @@ goog.require('ga_urlutils_service');
                                     showVectorFeature(feature, layerToQuery);
                                 }
                             } else if (layerToQuery.bodId) { // queryable bod layers
-                                var tempLayer = gaLayers.getLayer(layerToQuery.bodId);
+                                // var tempLayer = gaLayers.getLayer(layerToQuery.bodId);
+                                var coordinates = coordinate[0] + ',' + coordinate[1];
+                                var pixels = geomCoord = pixel[0] + ',' + pixel[1];
+                                var imgDisplay = size[0] + ',' + size[1] + ',96';
 
-                                var geomType = "geometryPoint";
-                                var geomCoord = coordinate[0] + ',' + coordinate[1];
-                                if (tempLayer.wmsSource !== "internal" && tempLayer.wmsUrl.includes("/geoserver/")) {
-                                    geomCoord = pixel[0] + ',' + pixel[1];
-                                    geomType = "imagePixels";
-                                }
+                                // TODO: check that Resolution get the size of 1 pixel in meters...
+                                var coordsBuffer = scope.map.getView().getResolution() * scope.options.tolerance;
+
                                 var params = {
-                                    geometryType: geomType,
-                                    geometryFormat: 'geojson',
-                                    geometry: geomCoord,
-                                    // FIXME: make sure we are passing the right dpi here.
-                                    imageDisplay: size[0] + ',' + size[1] + ',96',
+                                    lang: $translate.use(),
+                                    layer: 'all:' + layerToQuery.bodId,
+                                    coordinates: coordinates,
+                                    coordsBuffer: coordsBuffer,
+                                    pixels: pixels,
+                                    pixelsBuffer: scope.options.tolerance,
                                     mapExtent: mapExtent.join(','),
-                                    tolerance: scope.options.tolerance,
-                                    //---START---
-                                    //layers: 'all:' + layerToQuery.bodId
-                                    //---END---
-                                    //+++START+++
-                                    layer: 'all:' + layerToQuery.bodId
-                                    //+++END+++
+                                    imageDisplay: imgDisplay,
+                                    geometryType: 'Point',
+                                    geometryFormat: 'geojson'
                                 };
 
                                 //+++START+++
                                 try {
-                                    params.CQL_FILTER = layerToQuery.getSource().getParams().CQL_FILTER;
+                                    params.cqlFilter = layerToQuery.getSource().getParams().CQL_FILTER;
                                 } catch (e) {
                                     //TODO Log the error
                                 }
@@ -402,6 +399,13 @@ goog.require('ga_urlutils_service');
                                 identifyClosure(layerToQuery.wmsSource, coordinate, params, identifyUrl);
                             }
                         }
+                    };
+
+                    var distanceBetweenPoints = function (point1, point2) {
+                        var c1 = ol.proj.transform(point1, 'EPSG:25832', 'EPSG:4326');
+                        var c2 = ol.proj.transform(point2, 'EPSG:25832', 'EPSG:4326');
+                        var length = map.wgs84Sphere.haversineDistance(c1, c2);
+                        return length;
                     };
 
                     // Highlight the features found --> XXX FIXME XXX : PAY ATTENTION WHEN CALLING THIS METHOD, LAYERSOURCE IS OPTIONAL, IF UNKNOWN PUT "null".
@@ -629,7 +633,7 @@ goog.require('ga_urlutils_service');
                         }
                     };
 
-                // end link param
+                    // end link param
                 }
 
             };
