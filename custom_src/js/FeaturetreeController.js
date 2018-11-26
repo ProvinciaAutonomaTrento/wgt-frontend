@@ -8,7 +8,7 @@ goog.require('ga_print_service');
     ]);
 
     module.controller('GaFeaturetreeController', function ($http, $scope,
-                                                           $timeout, $translate, $window, gaGlobalOptions, gaPrintService) {
+                                                           $timeout, $translate, $window, gaGlobalOptions, gaPrintService, gaLayers) {
 
         var featureTreeId = '#featuretree-popup';
         // List of layers using an extendHtmlPoup for the print instead of htmlPopup
@@ -106,7 +106,7 @@ goog.require('ga_print_service');
                 }
             };
 
-            var onSucccessFunction = function onSuccessFunction(data, status, headers, config) {
+         /*   var onSucccessFunction = function onSuccessFunction(data, status, headers, config) {
                 printElementLoaded(data, bodId);
             };
             var onErrorFunction = function onErrorFunction(data, status, headers, config) {
@@ -114,16 +114,21 @@ goog.require('ga_print_service');
                     'There was a problem loading this feature. Layer: ' + bodId +
                     ', feature: ' + layer.features[i].id +
                     ', status: ' + status + '<div>', 'failure');
-            };
+            };*/
 
             console.log('print2');
             var promiseArray = [];
+            var externalArray = [];
             for (var bodId in featureTree) {
+                var layer = featureTree[bodId];
                 printLayers[bodId] = {
                     head: null,
                     body: ''
                 };
-                var layer = featureTree[bodId];
+                if (gaLayers.getLayerProperty(bodId, 'wmsSource') =='internal'){
+
+
+
                 var layerUrl = $scope.options.msUrl + '/htmlPopup';
 
                 for (var i in layer.features) {
@@ -143,12 +148,55 @@ goog.require('ga_print_service');
                     /**.success(onSucccessFunction)
                      .error(onErrorFunction);*/
                 }
+                }else {
+
+                    for (var i in layer.features) {
+                        var featurehtml =
+                            '<div id="{{id}}" class="htmlpopup-container">' +
+                            '<div class="htmlpopup-header">' +
+                            '{{name}}' +
+                            '</div>' +
+                            '<div class="htmlpopup-content">' +
+                            '{{properties}}' +
+                            '</div>' +
+                            '</div><br/>';
+                        var name = layer.features[i].layerName; // else must get feature id and take the part of string 0...(firstIndexOf(.))
+                        var featureId = layer.features[i].id;
+                        var layerId = layer.features[i].layerId || layer.features[i].bodId || layer.features[i].layerBodId;
+                        var id = layerId + '#' + featureId;
+
+                        var properties = '';
+                        if (layer.features[i].properties !== undefined && Object.keys(layer.features[i].properties).length > 0) {
+                            properties += '<table>';
+                            angular.forEach(layer.features[i].properties, function (singleProperty, key) {
+                                properties += '<tr><td>' + key + '</td><td>' + singleProperty + '</td></tr>';
+                            });
+                            properties += '</table>';
+                        }
+                        featurehtml = featurehtml.replace('{{id}}', id).replace('{{properties}}', properties || '').replace('{{name}}', (name) ? '(' + name + ')' : '');
+
+                        externalArray.push({
+                            'layerId':layerId,
+                            'html':featurehtml
+                        });
+                    }
+
+
+                }
+
+
             }
 
             var recFunc = function (promiseArray, index) {
                 // const recFunc = (promiseArray, index) => {
 
                 if (promiseArray.length === index) {
+
+                    for (var i in externalArray) {
+                        printElementLoaded(externalArray[i].html, externalArray[i].layerId);
+
+                    }
+
                     return;
                 }
                 console.log('Processing index', index);

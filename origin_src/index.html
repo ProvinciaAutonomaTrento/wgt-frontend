@@ -752,15 +752,17 @@ manifest="geoadmin.appcache"
             value: '${default_epsg}',
             label: '${default_epsg_label}',
             format: function(coordinates) {
-              return ol.coordinate.toStringXY(coordinates, 0).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+            //  return ol.coordinate.toStringXY(coordinates, 0).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+                return ol.coordinate.toStringXY(coordinates, 0);
             }
           }, {
             value: 'EPSG:4326',
-            label: 'WGS 84 (lat/lon)',
+            label: 'Lat/Lon',
             format: function(coordinates) {
               return ol.coordinate.toStringHDMS(coordinates) +  ' (' + ol.coordinate.format(coordinates, '{y}, {x}', 5) + ')';
             }
-          }, {
+          }
+           /*   ,{
             value: 'EPSG:4326',
             label: 'UTM',
             format: function(coordinates) {
@@ -774,7 +776,7 @@ manifest="geoadmin.appcache"
                 return '-';
               }
             }
-          }]
+          }*/]
         });
 
         module.config(function($translateProvider, gaGlobalOptions) {
