@@ -8,11 +8,11 @@
       <table>
           <tbody>
           <tr ng-repeat="c in coords">
-              <td>{{ c.proj.label }}</td>
+              <td style="width:40% !important">{{ c.proj.label }}</td>
               <td>{{ c.proj.format(c.coords) }}</td>
           </tr>
           <tr ng-if="altitude">
-              <td translate>elevation</td>
+              <td style="width:40% !important" translate>elevation</td>
               <td>{{altitude | measure:'distance':[' m']:1}}</td>
           </tr>
           <!--
