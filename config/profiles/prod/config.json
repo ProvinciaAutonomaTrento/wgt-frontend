@@ -19,7 +19,7 @@
     "admin_url_regexp": "^(http|https):\/\/webgis.provincia.tn.it\/wgt-admin\/.*",
     "public_url_regexp": "^(http|https):\/\/webgis.provincia.tn.it\/wgt\/.*",
     "default_epsg": "EPSG:25832",
-    "default_epsg_label": "ETRS 89",
+    "default_epsg_label": "UTM ETRF 2000",
     "default_epsg_extend": [582660, 5035773, 752144, 5165402],
     "href_logo": "http://www.provincia.tn.it/",
     "copyright_href": "http://www.territorio.provincia.tn.it/portal/server.pt/community/s_i_a_t/255/licenza_d'uso/255620"

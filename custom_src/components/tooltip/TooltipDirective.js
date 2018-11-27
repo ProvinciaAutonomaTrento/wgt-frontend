@@ -461,8 +461,10 @@ goog.require('ga_urlutils_service');
                                      .replace('{Feature}', value.featureId);
                                      */
                                     //---END---
+                                    var localSource = layerSource? layerSource : gaLayers.getLayerProperty(value.layerBodId, 'wmsSource');
+                                    if (localSource === null || localSource === undefined || localSource === 'internal') {
 
-                                    if (layerSource === null || layerSource === undefined || layerSource === 'internal') {
+                                  //  if (layerSource === null || layerSource === undefined || layerSource === 'internal') {
                                         //If layer is 'internal' call htmlPopup
                                         //+++START+++
                                         var htmlUrl = gaUrlUtils.append(scope.options.htmlUrlTemplate, "layer=" + value.layerBodId);
