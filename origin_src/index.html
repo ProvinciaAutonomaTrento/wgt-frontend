@@ -740,8 +740,8 @@ manifest="geoadmin.appcache"
           scales: JSON.parse('${scales}'),
           resolutions: getResolutionsFromScales(JSON.parse('${scales}')),
           lods: JSON.parse('${level_of_details}'),
-          maxLayerWarning: ${max_layer_warning},
-          maxLayerError: ${max_layer_error},
+          maxLayerWarning: '${max_layer_warning}',
+          maxLayerError: '${max_layer_error}',
           defaultEpsg: '${default_epsg}',
           defaultEpsgExtent: JSON.parse('${default_epsg_extend}'),
           defaultElevationModel: '${default_elevation_model}',
@@ -753,7 +753,8 @@ manifest="geoadmin.appcache"
             label: '${default_epsg_label}',
             format: function(coordinates) {
             //  return ol.coordinate.toStringXY(coordinates, 0).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
-                return ol.coordinate.toStringXY(coordinates, 0);
+               // return ol.coordinate.toStringXY(coordinates, 0);
+                return ol.coordinate.format(coordinates, '{x} E, {y} N', 0);
             }
           }, {
             value: 'EPSG:4326',
