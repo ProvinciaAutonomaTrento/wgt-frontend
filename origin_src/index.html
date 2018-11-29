@@ -828,7 +828,8 @@ manifest="geoadmin.appcache"
 
         module.config(function(gaPreviewFeaturesProvider, gaGlobalOptions) {
           gaPreviewFeaturesProvider.url =
-            gaGlobalOptions.cachedApiUrl + '/rest/services/all/MapServer/';
+        //    gaGlobalOptions.cachedApiUrl + '/rest/services/all/MapServer/';
+            gaGlobalOptions.cachedApiUrl + '/MapServer/getGeometry';
         });
 
         module.config(function(gaProfileProvider, gaGlobalOptions) {
