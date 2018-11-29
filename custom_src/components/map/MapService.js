@@ -428,7 +428,7 @@ goog.require('ga_urlutils_service');
                     request: 'GetMap',
                     crs: 'CRS:84',
                     bbox: '{westProjected},{southProjected},' +
-                        '{eastProjected},{northProjected}',
+                    '{eastProjected},{northProjected}',
                     width: '256',
                     height: '256',
                     styles: 'default',
@@ -459,7 +459,7 @@ goog.require('ga_urlutils_service');
 
                     var layer = new ol.layer.Image({
                         id: 'WMS||' + options.label + '||' + options.url + '||' +
-                            params.LAYERS,
+                        params.LAYERS,
                         url: options.url,
                         type: 'WMS',
                         opacity: options.opacity,
@@ -1601,7 +1601,7 @@ goog.require('ga_urlutils_service');
                             request: 'GetMap',
                             crs: 'CRS:84',
                             bbox: '{westProjected},{southProjected},' +
-                                '{eastProjected},{northProjected}',
+                            '{eastProjected},{northProjected}',
                             width: tileSize,
                             height: tileSize,
                             styles: 'default'
@@ -2896,8 +2896,9 @@ goog.require('ga_urlutils_service');
         });
 
         this.$get = function ($rootScope, $q, $http, gaDefinePropertiesForLayer,
-                              gaStyleFactory, gaMapUtils) {
-            var url = this.url;
+                              gaStyleFactory,gaMapUtils) {
+           var url = this.url;
+
             var selectStyle = gaStyleFactory.getStyle('select');
             var highlightStyle = gaStyleFactory.getStyle('highlight');
 
@@ -2905,7 +2906,7 @@ goog.require('ga_urlutils_service');
             gaDefinePropertiesForLayer(vector);
             vector.preview = true;
             vector.displayInLayerManager = false;
-            vector.setZIndex(gaMapUtils.Z_PREVIEW_FEATURE);
+           vector.setZIndex(gaMapUtils.Z_PREVIEW_FEATURE);
 
             // TO DO: May be this method should be elsewher?
             var getFeatures = function (featureIdsByBodId) {
@@ -2913,8 +2914,24 @@ goog.require('ga_urlutils_service');
                 angular.forEach(featureIdsByBodId, function (featureIds, bodId) {
                     Array.prototype.push.apply(promises, $.map(featureIds,
                         function (featureId) {
-                            return $http.get(url + bodId + '/' +
-                                featureId + '?geometryFormat=geojson');
+
+
+                            return $http.get(url, {
+
+                                params: {
+                                    layer: bodId,
+                                    feature: featureId,
+                                    geometryFormat: 'geojson'
+                                }
+                            });
+
+
+
+
+
+
+                            /*     return $http.get(url + bodId + '/' +
+                                     featureId + '?geometryFormat=geojson');*/
                         }
                     ));
                 });
@@ -2980,10 +2997,10 @@ goog.require('ga_urlutils_service');
                     var that = this;
                     getFeatures(featureIdsByBodId).then(function (results) {
                         angular.forEach(results, function (result) {
-                            result.data.feature.properties.layerId =
-                                result.data.feature.layerBodId;
-                            features.push(result.data.feature);
-                            that.add(map, geojson.readFeature(result.data.feature));
+                            result.data.results.properties.layerId =
+                                result.data.results.layerBodId;
+                            features.push(result.data.results);
+                            that.add(map, geojson.readFeature(result.data.results));
                         });
                         that.zoom(map);
                         defer.resolve(features);
@@ -3050,7 +3067,50 @@ goog.require('ga_urlutils_service');
                     var featureIdsByBodId = {};
                     var paramKey;
                     var listenerKey;
-                    for (paramKey in queryParams) {
+                    var layerBodId;
+                    var featureId;
+
+                    //TODO qui metto la lettura dei parametri, a cose fatte
+
+
+                        if (queryParams.layer) {
+                            layerBodId = queryParams.layer;
+
+                            // se il layer non è presente in mappa lo aggiungo
+                            if (!gaMapUtils.getMapOverlayForBodId(map, layerBodId) &&
+                                layerSpecs.indexOf(layerBodId) == -1) {
+                                map.addLayer(gaLayers.getOlLayerById(layerBodId));
+                            }
+                        }
+                        ;
+
+                        if (queryParams.feature && layerBodId) {
+                            featureId = queryParams.feature;
+                        }
+                        ;
+
+
+
+                        if (gaLayers.getLayer(layerBodId)) {
+                            var bodId = layerBodId;
+                            if (!(bodId in featureIdsByBodId)) {
+                                featureIdsByBodId[bodId] = [];
+                            }
+                            var featureIds = featureId.split(',');
+                            if (featureIds.length > 0) {
+                                featureIdsCount += featureIds.length;
+                                Array.prototype.push.apply(featureIdsByBodId[bodId],
+                                    featureIds);
+                            }
+                        }
+
+
+
+
+
+
+       /*             for (paramKey in queryParams) {
+
                         if (gaLayers.getLayer(paramKey)) {
                             var bodId = paramKey;
                             if (!(bodId in featureIdsByBodId)) {
@@ -3067,7 +3127,9 @@ goog.require('ga_urlutils_service');
                                 }
                             }
                         }
-                    }
+
+
+                    }*/
 
                     var removeParamsFromPL = function () {
                         var bodId;

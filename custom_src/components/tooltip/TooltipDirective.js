@@ -29,7 +29,7 @@ goog.require('ga_urlutils_service');
     module.directive('gaTooltip',
         function ($timeout, $http, $q, $translate, $sce, gaPopup, gaLayers,
                   gaBrowserSniffer, gaDefinePropertiesForLayer, gaMapClick, gaDebounce,
-                  gaPreviewFeatures, gaStyleFactory, gaMapUtils, gaTime, gaTopic
+                  gaPreviewFeatures, gaStyleFactory, gaMapUtils, gaTime, gaTopic, gaPermalink
                   //+++START+++
             , gaUrlUtils
                   //+++END+++
@@ -432,7 +432,8 @@ goog.require('ga_urlutils_service');
                                     feature.setId(value.getId());
                                     feature.set('layerId', layerId);
                                     gaPreviewFeatures.add(map, feature);
-                                    showPopup(value.get('htmlpopup'));
+
+                                    showPopup( value.get('htmlpopup'));
 
                                     // Store the ol feature for highlighting
                                     featuresByLayerId[layerId][feature.getId()] = feature;
@@ -486,7 +487,22 @@ goog.require('ga_urlutils_service');
                                             }
                                             //+++END+++
                                         }).success(function (html) {
-                                            showPopup(html);
+
+                                            gaPermalink.deleteParam('layer');
+                                            gaPermalink.deleteParam('feature');
+
+                                            var linkToFeature =[
+                                                '<tr>',
+                                                '<td>Link alla feature</td>',
+                                                '<td>',
+                                                '<a target="_blank" href="' + gaPermalink.getHref() +'&showTooltip=true'+ '&layer=' + value.layerBodId + '&feature='+ value.id + '">Apri link alla feature</a>',
+                                                '</td>',
+                                                '</tr>',
+                                                '</table>'
+                                            ].join('');
+                                            var htmlArray = html.split("</table>");
+                                           var enrichedPopup =  htmlArray[0] + linkToFeature + htmlArray[1];
+                                            showPopup(enrichedPopup);
                                         });
                                     } else {
                                         //else (build up html using the "features" and javascript
