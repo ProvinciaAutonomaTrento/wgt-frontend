@@ -13,7 +13,8 @@ goog.require('ga_storage_service');
 
     module.controller('GaQueryDirectiveController', function($filter, $rootScope,
                                                              $scope, $timeout, $translate, gaLayers, gaLayerFilters, gaQuery,
-                                                             gaMapUtils, gaStorage) {
+                                                             gaMapUtils, gaStorage , gaGlobalOptions
+    ) {
         var geojson = new ol.format.GeoJSON();
         var stored;
         $scope.queryType = 1; // Filter attributes
@@ -243,7 +244,9 @@ goog.require('ga_storage_service');
         $scope.searchByGeometry = function(layerBodId, offset,featureCount) {
             //DG
 
+
             angular.forEach($scope.layers, function(layer){
+
                 if (!layer.visible){
                     delete $scope.featuresByLayer[layer.bodId];
                 }
@@ -266,12 +269,30 @@ goog.require('ga_storage_service');
                 }, getGeometryParams());
 
                 var layersRequested = $scope.tooltipLayers;
+
+
+
+
+
                 if (layerBodId) {
                     layersRequested = [
                         gaMapUtils.getMapOverlayForBodId($scope.map, layerBodId)
                     ];
                 }
+                var actualScale = gaGlobalOptions.scales[$scope.map.getView().getZoom()];
+
                 angular.forEach(layersRequested, function(layer) {
+
+                    var minScale = gaLayers.getLayerProperty(layer.bodId, 'minscale');
+                    var maxScale = gaLayers.getLayerProperty(layer.bodId, 'maxscale');
+
+                    //if minScale is not null and layer minScale is gt map actualScale don't identify features for this layer
+                    if (minScale !== 0 && minScale > actualScale){
+                        //if maxScale is not null and layer maxScale is lt map actualScale don't identify features for this layer
+                    }else if (maxScale !== 0 && maxScale < actualScale){
+
+
+                    }else{
 
                     //+++START+++
                     var prms = angular.extend({ timeInstant: getYear(layer.time) }, common);
@@ -299,6 +320,7 @@ goog.require('ga_storage_service');
                     }, function(reason) {
                         resetResults(reason, layer.bodId);
                     });
+                    }
                 });
             } else {
                 $scope.loading = false;

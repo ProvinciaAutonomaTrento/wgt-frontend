@@ -33,6 +33,7 @@ goog.require('ga_urlutils_service');
                   //+++START+++
             , gaUrlUtils
                   //+++END+++
+                  ,gaGlobalOptions
         ) {
             var popupContent =
                 '<div ng-repeat="htmlsnippet in options.htmls">' +
@@ -68,8 +69,18 @@ goog.require('ga_urlutils_service');
             // @brez: identify rettangolo non passa da questa funzione
             var getLayersToQuery = function (map) {
                 var layersToQuery = [];
+                var actualScale = gaGlobalOptions.scales[map.getView().getZoom()];
                 map.getLayers().forEach(function (l) {
-                    if (l.bodId && l.visible && !l.preview &&
+                    var minScale = gaLayers.getLayerProperty(l.bodId, 'minscale');
+                    var maxScale = gaLayers.getLayerProperty(l.bodId, 'maxscale');
+
+                    //if minScale is not null and layer minScale is gt map actualScale don't identify features for this layer
+                    if (minScale !== 0 && minScale > actualScale){
+                        //if maxScale is not null and layer maxScale is lt map actualScale don't identify features for this layer
+                    }else if (maxScale !== 0 && maxScale < actualScale){
+
+
+                    }else if (l.bodId && l.visible && !l.preview &&
                         (isQueryableBodLayer(l) || isVectorLayer(l))) {
                         layersToQuery.push(l);
                     }
