@@ -288,9 +288,10 @@ goog.require('ga_storage_service');
 
                     //if minScale is not null and layer minScale is gt map actualScale don't identify features for this layer
                     if (minScale !== 0 && minScale > actualScale){
+                        delete $scope.featuresByLayer[layer.bodId];
                         //if maxScale is not null and layer maxScale is lt map actualScale don't identify features for this layer
                     }else if (maxScale !== 0 && maxScale < actualScale){
-
+                        delete $scope.featuresByLayer[layer.bodId];
 
                     }else{
 
