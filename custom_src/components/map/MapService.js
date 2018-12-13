@@ -2897,7 +2897,7 @@ goog.require('ga_urlutils_service');
 
         this.$get = function ($rootScope, $q, $http, gaDefinePropertiesForLayer,
                               gaStyleFactory,gaMapUtils) {
-           var url = this.url;
+           var url = this.getFeatureUrl;
 
             var selectStyle = gaStyleFactory.getStyle('select');
             var highlightStyle = gaStyleFactory.getStyle('highlight');
