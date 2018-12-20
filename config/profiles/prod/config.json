@@ -1,7 +1,8 @@
 {
     "version": "",
     "versionslashed": "",
-    "apache_base_path": "",
+    "public_url": "//webgis.provincia.tn.it",
+    "base_url": "/wgt",
     "api_url": "services",
     "default_topic_id": "1",
     "translation_fallback_code": "it",
@@ -13,7 +14,6 @@
     "level_of_details": [8, 9, 10, 11, 12, 13, 14, 14, 16, 17, 18, 18],
     "max_layer_warning": 15,
     "max_layer_error": 20,
-    "public_url": "//webgis.provincia.tn.it",
     "default_elevation_model": "COMB",
     "default_terrain": "ch.swisstopo.terrain.3d",
     "admin_url_regexp": "^(http|https):\/\/webgis.provincia.tn.it\/wgt-admin\/.*",

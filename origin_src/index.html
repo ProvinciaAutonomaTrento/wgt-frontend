@@ -718,7 +718,7 @@ manifest="geoadmin.appcache"
           <!-- @endif -->
           buildMode: '<!-- @echo MODE -->',
           pegman: !!window.location.search.match(/(pegman=true)/),
-          mapUrl: location.origin + '${apache_base_path}',
+          mapUrl: '${base_url}',
           apiUrl: '${api_url}',
           publicUrl: location.protocol + '${public_url}',
           publicUrlRegexp: new RegExp('${public_url_regexp}'),

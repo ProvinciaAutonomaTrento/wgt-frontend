@@ -2,6 +2,11 @@ var gulp = require('gulp');
 var flatten = require('gulp-flatten');
 var runSequence = require('run-sequence');
 
+gulp.task('copy-checker', function() {
+  return gulp.src('./origin_src/checker')
+      .pipe(gulp.dest('./src/main/webapp/'));
+});
+
 gulp.task('copy-components', function() {
   return gulp.src('./origin_src/components/**/*')
     .pipe(gulp.dest('./src/main/webapp/components'));
@@ -39,5 +44,5 @@ gulp.task('copy-components-img', function() {
 });
 
 gulp.task('copy-files', function(callback) {
-  return runSequence('copy-components', 'copy-img', 'copy-lib', 'copy-js', 'copy-locales', 'copy-style', 'copy-components-img', callback);
+  return runSequence('copy-checker', 'copy-components', 'copy-img', 'copy-lib', 'copy-js', 'copy-locales', 'copy-style', 'copy-components-img', callback);
 });
