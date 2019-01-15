@@ -29,7 +29,7 @@ goog.require('ga_urlutils_service');
     module.directive('gaTooltip',
         function ($timeout, $http, $q, $translate, $sce, gaPopup, gaLayers,
                   gaBrowserSniffer, gaDefinePropertiesForLayer, gaMapClick, gaDebounce,
-                  gaPreviewFeatures, gaStyleFactory, gaMapUtils, gaTime, gaTopic
+                  gaPreviewFeatures, gaStyleFactory, gaMapUtils, gaTime, gaTopic, gaPermalink
                   //+++START+++
             , gaUrlUtils
                   //+++END+++
@@ -397,8 +397,7 @@ goog.require('ga_urlutils_service');
                                 }
 
 
-
-                                var identifyClosure = function(layerSource, coords, parameters, url) {
+                                var identifyClosure = function (layerSource, coords, parameters, url) {
 
                                     $http.get(url, {
                                         timeout: canceler.promise,
@@ -443,6 +442,7 @@ goog.require('ga_urlutils_service');
                                     feature.setId(value.getId());
                                     feature.set('layerId', layerId);
                                     gaPreviewFeatures.add(map, feature);
+
                                     showPopup(value.get('htmlpopup'));
 
                                     // Store the ol feature for highlighting
@@ -472,10 +472,10 @@ goog.require('ga_urlutils_service');
                                      .replace('{Feature}', value.featureId);
                                      */
                                     //---END---
-                                    var localSource = layerSource? layerSource : gaLayers.getLayerProperty(value.layerBodId, 'wmsSource');
+                                    var localSource = layerSource ? layerSource : gaLayers.getLayerProperty(value.layerBodId, 'wmsSource');
                                     if (localSource === null || localSource === undefined || localSource === 'internal') {
 
-                                  //  if (layerSource === null || layerSource === undefined || layerSource === 'internal') {
+                                        //  if (layerSource === null || layerSource === undefined || layerSource === 'internal') {
                                         //If layer is 'internal' call htmlPopup
                                         //+++START+++
                                         var htmlUrl = gaUrlUtils.append(scope.options.htmlUrlTemplate, "layer=" + value.layerBodId);
@@ -497,7 +497,30 @@ goog.require('ga_urlutils_service');
                                             }
                                             //+++END+++
                                         }).success(function (html) {
-                                            showPopup(html);
+                                            /*
+                                            var permalinkUrl = gaPermalink.getHref();
+                                            var permalinkUrlArray = permalinkUrl.split('&');
+                                            var permalinkUrlArrayFiltered = permalinkUrlArray.filter( function (el){
+                                              return el.indexOf('layer=') ==-1 && el.indexOf('feature=') ==-1
+                                          });
+                                            var permalinkUrlFiltered = permalinkUrlArrayFiltered.join('&');
+                                          */
+                                              gaPermalink.deleteParam('layer');
+                                              gaPermalink.deleteParam('feature');
+
+
+                                            var linkToFeature = [
+                                                '<tr>',
+                                                '<td>Link alla feature</td>',
+                                                '<td>',
+                                                '<a target="_blank" href="' + gaPermalink.getHref() + '&showTooltip=true' + '&layer=' + value.layerBodId + '&feature=' + value.properties.classid + '">Apri link alla feature</a>',
+                                                '</td>',
+                                                '</tr>',
+                                                '</table>'
+                                            ].join('');
+                                            var htmlArray = html.split("</table>");
+                                            var enrichedPopup = htmlArray[0] + linkToFeature + htmlArray[1];
+                                            showPopup(enrichedPopup);
                                         });
                                     } else {
                                         //else (build up html using the "features" and javascript
