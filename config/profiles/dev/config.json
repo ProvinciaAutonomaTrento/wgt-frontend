@@ -15,7 +15,7 @@
     "max_layer_warning": 15,
     "max_layer_error": 20,
     "default_elevation_model": "COMB",
-    "default_terrain": "ch.swisstopo.terrain.3d",
+    "default_terrain": "",
     "admin_url_regexp": "^(http|https):\/\/localhost:3000\/wgt-admin\/.*",
     "public_url_regexp": "^(http|https):\/\/localhost:3000\/wgt\/.*",
     "default_epsg": "EPSG:25832",

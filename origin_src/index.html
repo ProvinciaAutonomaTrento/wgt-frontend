@@ -42,7 +42,7 @@ manifest="geoadmin.appcache"
   <link rel="apple-touch-icon" sizes="152x152" href="${versionslashed}img/touch-icon-bund-152x152.png" />
 
   <!-- Description is translated 'by hand' in the MainController -->
-  <meta name="description" content="geo.admin.ch ist die Geoinformationsplattform der Schweizerischen Eidgenossenschaft. // geo.admin.ch est la plateforme de géoinformation de la Confédération suisse." />
+  <meta name="description" content="Questo è il portale cartografico della Provincia Autonoma di Trento." />
 
   <meta itemprop="image" content="${versionslashed}img/logo_geoportal.png" />
 
@@ -671,7 +671,7 @@ manifest="geoadmin.appcache"
       <script>
         window.addEventListener('load', function() {
           if (window.name !== "embed" && window.location == window.parent.location) {
-            document.body.innerHTML = "The map.geo.admin.ch embed page must be used in an iframe."
+            document.body.innerHTML = "The embed page must be used in an iframe."
           }
         }, false);
       </script>
@@ -796,10 +796,10 @@ manifest="geoadmin.appcache"
           gaLayersProvider.dfltWmsSubdomains = ['', '0', '1', '2', '3', '4'];
           gaLayersProvider.dfltWmtsNativeSubdomains = ['5', '6', '7', '8', '9'];
           gaLayersProvider.dfltWmtsMapProxySubdomains = ['20', '21', '22', '23', '24'];
-          gaLayersProvider.wmsUrlTemplate = '//wms{s}.geo.admin.ch/';
-          gaLayersProvider.wmtsGetTileUrlTemplate = '//wmts{s}.geo.admin.ch/1.0.0/{Layer}/default/{Time}/{TileMatrixSet}/{z}/{y}/{x}.{Format}';
-          gaLayersProvider.wmtsMapProxyGetTileUrlTemplate = '//wmts{s}.geo.admin.ch/1.0.0/{Layer}/default/{Time}/{TileMatrixSet}/{z}/{x}/{y}.{Format}';
-          gaLayersProvider.terrainTileUrlTemplate = '//3d.geo.admin.ch/1.0.0/{Layer}/default/{Time}/4326';
+          gaLayersProvider.wmsUrlTemplate = '';
+          gaLayersProvider.wmtsGetTileUrlTemplate = '';
+          gaLayersProvider.wmtsMapProxyGetTileUrlTemplate = '';
+          gaLayersProvider.terrainTileUrlTemplate = '';
           gaLayersProvider.layersConfigUrlTemplate = gaGlobalOptions.apiUrl + '/layersConfig?lang={Lang}';
           //---START---
           //gaLayersProvider.legendUrlTemplate = gaGlobalOptions.apiUrl + '/rest/services/all/MapServer/{Layer}/legend?lang={Lang}';
