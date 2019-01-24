@@ -33,7 +33,7 @@ goog.require('ga_urlutils_service');
                   //+++START+++
             , gaUrlUtils
                   //+++END+++
-                  ,gaGlobalOptions
+            , gaGlobalOptions
         ) {
             var popupContent =
                 '<div ng-repeat="htmlsnippet in options.htmls">' +
@@ -75,12 +75,12 @@ goog.require('ga_urlutils_service');
                     var maxScale = gaLayers.getLayerProperty(l.bodId, 'maxscale');
 
                     //if minScale is not null and layer minScale is gt map actualScale don't identify features for this layer
-                    if (minScale !== 0 && minScale > actualScale){
+                    if (minScale !== 0 && minScale > actualScale) {
                         //if maxScale is not null and layer maxScale is lt map actualScale don't identify features for this layer
-                    }else if (maxScale !== 0 && maxScale < actualScale){
+                    } else if (maxScale !== 0 && maxScale < actualScale) {
 
 
-                    }else if (l.bodId && l.visible && !l.preview &&
+                    } else if (l.bodId && l.visible && !l.preview &&
                         (isQueryableBodLayer(l) || isVectorLayer(l))) {
                         layersToQuery.push(l);
                     }
@@ -505,15 +505,15 @@ goog.require('ga_urlutils_service');
                                           });
                                             var permalinkUrlFiltered = permalinkUrlArrayFiltered.join('&');
                                           */
-                                              gaPermalink.deleteParam('layer');
-                                              gaPermalink.deleteParam('feature');
-
+                                            gaPermalink.deleteParam('layer');
+                                            gaPermalink.deleteParam('feature');
+                                            gaPermalink.deleteParam('showTooltip');
 
                                             var linkToFeature = [
                                                 '<tr>',
-                                                '<td>Link alla feature</td>',
+                                                '<td>Condividi</td>',
                                                 '<td>',
-                                                '<a target="_blank" href="' + gaPermalink.getHref() + '&showTooltip=true' + '&layer=' + value.layerBodId + '&feature=' + value.properties.classid + '">Apri link alla feature</a>',
+                                                '<a target="_blank" href="' + gaPermalink.getHref() + '&showTooltip=true' + '&layer=' + value.layerBodId + '&feature=' + value.properties.classid + '">Link all’oggetto</a>',
                                                 '</td>',
                                                 '</tr>',
                                                 '</table>'
