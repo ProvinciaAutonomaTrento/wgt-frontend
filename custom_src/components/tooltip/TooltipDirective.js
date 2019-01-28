@@ -513,7 +513,7 @@ goog.require('ga_urlutils_service');
                                                 '<tr>',
                                                 '<td>Condividi</td>',
                                                 '<td>',
-                                                '<a target="_blank" href="' + gaPermalink.getHref() + '&showTooltip=true' + '&layer=' + value.layerBodId + '&feature=' + value.properties.classid + '">Link all’oggetto</a>',
+                                                '<a target="_blank" href="' + gaPermalink.getHref() + '&showTooltip=true' + '&layer=' + value.layerBodId + '&feature=' + value.properties.classid + '">Link all\'oggetto</a>',
                                                 '</td>',
                                                 '</tr>',
                                                 '</table>'
