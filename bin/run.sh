@@ -2,5 +2,5 @@
 
 npm install
 npm run bower-install
-npm run gulp-dev
+gulp --profile=dev
 npm run gulp-connect
