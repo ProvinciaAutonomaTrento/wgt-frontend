@@ -38,6 +38,11 @@ gulp.task('copy-custom-helper', function() {
     .pipe(gulp.dest('./src/main/webapp/help'));
 });
 
+// gulp.task('copy-custom-index', function() {
+//   return gulp.src('./custom_src/index.html')
+//     .pipe(gulp.dest('./src/main/webapp'));
+// });
+
 gulp.task('copy-custom-files', function(callback) {
   return runSequence('copy-custom-components', 'copy-custom-img', 'copy-custom-lib', 'copy-custom-js', 'copy-custom-locales', 'copy-custom-components-img', 'copy-custom-helper', callback);
 });
