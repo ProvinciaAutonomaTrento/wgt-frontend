@@ -20,9 +20,9 @@ var ORDINAMENTO = 'ordinamento';
 var TITOLO = 'titolo';
 
 var IMAGES_URL = '';
-
-var URL_WS_HELP = '${api_url}' + '/help';
-
+var ENDPOINT = '${api_url}';
+var URL_WS_HELP = ENDPOINT + '/help';
+var IMAGES_ROOT_FOLDER = ENDPOINT + '/';
 var VERSION = 'version_d';
 
 $(document).ready(function () {
@@ -30,10 +30,8 @@ $(document).ready(function () {
 	var id = parseInt(GetUrlValue('id')) || 1;
    var langa = GetUrlValue('lang') || 'it';
 	// var langa = 'it'; // only italian language available at the moment for help
-
-
+	
 	var rootSite = './';
-
 
 	if (langa == 'de') {
 		var lang = 'de';}
@@ -80,11 +78,11 @@ $(document).ready(function () {
 
 				function getImage(){
 					var imgString = '';
-					if (imageList && imgList instanceof Array){
+					if (imageList && imageList instanceof Array){
 						for (var i = 0; i < imageList.length; i++){
 							var imageSrc = imageList[i];
 							if (imageSrc){
-								imgString += '<img src="' + (rootSite + 'img/' + imageSrc) + '">'
+								imgString += '<img src="' + (IMAGES_ROOT_FOLDER + imageSrc) + '">'
 							}
 						}
 					}
