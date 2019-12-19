@@ -124,10 +124,7 @@ goog.require('ga_help_service');
               for (i = 0; i < len; i++) {
                 gaHelpService.get(ids[i]).then(function(res) {
 
-                  console.log(res);
-
                   const item = res.data[0];
-
                   results.push([
                     // $sce.trustAsHtml(res.rows[0][1]),
                     // $sce.trustAsHtml(res.rows[0][2]),
