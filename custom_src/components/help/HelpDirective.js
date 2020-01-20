@@ -124,7 +124,7 @@ goog.require('ga_help_service');
               for (i = 0; i < len; i++) {
                 gaHelpService.get(ids[i]).then(function(res) {
 
-                  const item = res.data[0];
+                  var item = res.data[0];
                   results.push([
                     // $sce.trustAsHtml(res.rows[0][1]),
                     // $sce.trustAsHtml(res.rows[0][2]),
@@ -142,7 +142,8 @@ goog.require('ga_help_service');
                     //---END---
                     //+++START+++
                     // "help/img/"+item[IMMAGINE]
-                    gaGlobalOptions.apiUrl+'/'+item[IMMAGINE]
+
+                    item[IMMAGINE] ? gaGlobalOptions.apiUrl+'/'+item[IMMAGINE] : null
                     //+++END+++
                   ]);
                   resultReceived();

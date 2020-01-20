@@ -16,21 +16,31 @@ var IMMAGINE = 'immagine';
 var LINGUA = 'lingua';
 var LEGENDA = 'legenda';
 var CONTENUTO_RST = 'contenutoRst';
-var ORDINAMENTO = 'ordinamento';
+var ORDINAMENTO = 'ordine';
 var TITOLO = 'titolo';
 
 var IMAGES_URL = '';
-var ENDPOINT = '${api_url}';
+var ENDPOINT = '${base_url}/${api_url}';
 var URL_WS_HELP = ENDPOINT + '/help';
 var IMAGES_ROOT_FOLDER = ENDPOINT + '/';
 var VERSION = 'version_d';
 
+function compareHelpItems( a, b ) {
+	if ( a[ORDINAMENTO] < b[ORDINAMENTO] ){
+		return -1;
+	}
+	if ( a[ORDINAMENTO] > b[ORDINAMENTO] ){
+		return 1;
+	}
+	return 0;
+}
+
 $(document).ready(function () {
 
 	var id = parseInt(GetUrlValue('id')) || 1;
-   var langa = GetUrlValue('lang') || 'it';
+	var langa = GetUrlValue('lang') || 'it';
 	// var langa = 'it'; // only italian language available at the moment for help
-	
+
 	var rootSite = './';
 
 	if (langa == 'de') {
@@ -180,6 +190,9 @@ $(document).ready(function () {
 
 
 				if (msg && msg instanceof Array){
+
+					msg.sort( compareHelpItems );
+
 					msg.forEach(function (item, index) {
 
 						var	ids = item[HELP_ITEM_ID],
