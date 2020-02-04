@@ -38,7 +38,8 @@ gulp.task('copy-bower-fonts', function () {
 });
 
 gulp.task('inject-to-index', function () {
-    var target = gulp.src('origin_src/index.html');
+    var target = gulp.src('custom_src/index.html');
+    // var target = gulp.src('origin_src/index.html');
     var sources = gulp.src(['src/main/webapp/resources/**/*.js', 'src/main/webapp/resources/**/*.css'], {
         read: false
     });

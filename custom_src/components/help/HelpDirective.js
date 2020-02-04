@@ -7,6 +7,16 @@ goog.require('ga_help_service');
     'ga_help_service'
   ]);
 
+  var HELP_ITEM_ID = 'helpItemId';
+  var CONTENUTO_HTML = 'contenutoHtml';
+  var CONTENUTO = 'contenuto';
+  var IMMAGINE = 'immagine';
+  var LINGUA = 'lingua';
+  var LEGENDA = 'legenda';
+  var CONTENUTO_RST = 'contenutoRst';
+  var ORDINAMENTO = 'ordinamento';
+  var TITOLO = 'titolo';
+
   /* Help Directive
    *
    * This directives places a help button into the html.
@@ -46,7 +56,7 @@ goog.require('ga_help_service');
     };
   });
 
-  module.directive('gaHelpAction', function($rootScope, $sce, gaHelpService,
+  module.directive('gaHelpAction', function($rootScope, $sce, gaHelpService, gaGlobalOptions,
       gaPopup) {
     var popupContent = '<div class="ga-help-content" ' +
                             'ng-repeat="res in options.results">' +
@@ -113,14 +123,27 @@ goog.require('ga_help_service');
               };
               for (i = 0; i < len; i++) {
                 gaHelpService.get(ids[i]).then(function(res) {
+
+                  var item = res.data[0];
                   results.push([
-                    $sce.trustAsHtml(res.rows[0][1]),
-                    $sce.trustAsHtml(res.rows[0][2]),
+                    // $sce.trustAsHtml(res.rows[0][1]),
+                    // $sce.trustAsHtml(res.rows[0][2]),
+                    // //---START---
+                    // //res.rows[0][4]
+                    // //---END---
+                    // //+++START+++
+                    // "help/img/"+res.rows[0][4]
+                    // //+++END+++
+
+                    $sce.trustAsHtml(item[TITOLO]),
+                    $sce.trustAsHtml(item[CONTENUTO]),
                     //---START---
                     //res.rows[0][4]
                     //---END---
                     //+++START+++
-                    "help/img/"+res.rows[0][4]
+                    // "help/img/"+item[IMMAGINE]
+
+                    item[IMMAGINE] ? gaGlobalOptions.apiUrl+'/'+item[IMMAGINE] : null
                     //+++END+++
                   ]);
                   resultReceived();
