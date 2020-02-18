@@ -1,0 +1,80 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+name: WGT-frontend
+applicationSuite: WGT
+url: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend.git'
+landingURL: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend'
+logo: screenshots/wgt_logo.png ??DA FARE??
+releaseDate: '2020-01-10'
+developmentStatus: stable
+softwareVersion: 3.2.16 ??DA INDICARE VERSIONE ESATTA??
+softwareType: standalone/web
+platforms:
+  - web
+usedBy:
+  - questa versione customizzata: Provincia autonoma di Trento 
+  - progetto padre: Geoportal Svizzera: https://map.geo.admin.ch/
+  - altri progetti:
+    - National :
+       - Norwegian Institute of Bioecomic Research : Geoportal forest of Norway: http://kartbeta.skogoglandskap.no/kilden
+       - Geoportal Luxembourg is a clone of first version: http://map.geoportail.lu/
+    - Regional :
+       - Geoportal Bayern : https://geoportal.bayern.de/bayernatlas/
+       - Geoportal Jura-Bernois https://map.geojb.ch
+       - Geoportal Trento https://webgis.provincia.tn.it/wgt/
+       - Geoportal Piemont http://www.geoportale.piemonte.it/geocatalogorp/?sezione=mappa
+       - Geoportal of Thurgau https://map.geo.tg.ch/
+       - Environmental Portal of Niedersachsen https://numis.niedersachsen.de/kartendienste
+ categories:
+  - webgis
+maintenance:
+  type: internal
+  contacts:
+    - name: Trentino Digitale SPA
+      email: info@tndigit.it
+      phone: +39 0461800111
+      affiliation: Società in-house della Provincia autonoma di Trento
+legal:
+  license: 3-Clause BSD License
+  mainCopyrightOwner: Provincia Autonoma di Trento
+  repoOwner: Provincia Autonoma di Trento
+intendedAudience:
+  scope:
+    - local-authorities
+    - government
+  countries:
+    - it
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - it
+it:
+  countryExtensionVersion: '0.2'
+  riuso:
+    codiceIPA: p_tn
+  piattaforme:
+    spid: true
+  conforme:
+    gdpr: true
+    modelloInteroperabilita: true
+    misureMinimeSicurezza: true
+description:
+  it:
+    localisedName: WGT-frontend
+    genericName: WGT
+    documentation: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend/README.md'
+    
+    apiDocumentation: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend/README.md'
+    
+    shortDescription: WebGIS Trasversale
+    
+    longDescription: >
+    
+     Il WebGIS Trasversale della Provincia autonoma di Trento si occupa della pubblicazione dei livelli informativi geografici della Provincia offrendo una serie di funzionalità base tipiche di un webGIS ed user-friendly rivolte soprattutto al cittadino e ai liberi professionisti.
+     Il sistema è predisposto per l'autenticazione SPID nel caso ci fosse la necessità di pubblicare informazioni riservate. Il sistema è suddiviso nelle seguenti macro-componenti: il database con i dati e le configurazioni, i servizi REST di backend, 	 il server di mappa che eroga servizi WMS/WMTS, il motore di ricerca e il frontend il cui codice nello specifico viene rilasciato.
+           
+    features:
+      - WebGIS
