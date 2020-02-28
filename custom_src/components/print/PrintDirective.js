@@ -601,6 +601,7 @@ goog.require('ga_time_service');
                     }
                     if (mapfish_version == 3) {
                         enc.matrices = matrices;
+                        enc.imageFormat = 'image/' + (config.format || 'png');
                     }
                     //+++END+++
 
