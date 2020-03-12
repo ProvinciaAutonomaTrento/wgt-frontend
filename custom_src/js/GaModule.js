@@ -64,6 +64,7 @@ goog.require('ga_importgpx');
 goog.require('ga_importgpx_controller');
 goog.require('ga_importshp');
 goog.require('ga_importshp_controller');
+goog.require('ga_banner');
 
 (function () {
 
@@ -132,6 +133,7 @@ goog.require('ga_importshp_controller');
         'ga_importgpx_controller',
         'ga_importshp',
         'ga_importshp_controller',
+        'ga_banner',
         'ui.bootstrap'
     ]);
 

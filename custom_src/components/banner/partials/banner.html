@@ -1,0 +1,13 @@
+<div style="position: relative; z-index: 9999" ng-controller="GaBannerController" ng-show="!accepted">
+    <div style="background-color: rgba(234, 241, 221, 0.95); position: fixed; bottom: 40px; left: 20px; right: 20px">
+        <div style="margin: 10px 12px 20px 10px">
+            <div ng-bind-html="bannerContent"></div>
+            <br />
+            <div>{{ 'banner_accept_description' | translate }}</div>
+            <br />
+            <button class="btn btn-primary center-block" style="margin-bottom: 15px" ng-click="accept()">
+                <span>{{ 'banner_accept_button' | translate }}</span>
+            </button>
+        </div>
+    </div>
+</div>
