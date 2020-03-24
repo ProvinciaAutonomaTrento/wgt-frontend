@@ -12,7 +12,8 @@ gulp.task('copy-bower-js', function () {
         'bower_components/angular/angular.js',
         'bower_components/angular-translate/angular-translate.js',
         'bower_components/bootstrap/dist/js/bootstrap.js',
-        'bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
+        'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+        'bower_components/angular-cookies/angular-cookies.js'
     ])
         .pipe(concat("lib.min.js"))
         .pipe(uglify())

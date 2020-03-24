@@ -1745,6 +1745,7 @@ goog.require('ga_urlutils_service');
                                     proxied: proxied_url
                                 };
                                 options.urls[0] = proxied_url;
+                                options.format ='image/' + (layer.format || 'png');
                                 olSource = layer.olSource = new ol.source.WMTS(options);
                                 olSource.setProperties({'capabilities_obj': layer_capabilities});
                             }

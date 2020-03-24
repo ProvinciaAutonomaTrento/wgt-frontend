@@ -18,6 +18,8 @@
   "bafu": "FOEN",
   "bafu_service_link_href": "http://www.bafu.admin.ch/index.html?lang=en",
   "bafu_service_link_label": "www.bafu.admin.ch",
+  "banner_accept_description": "If you are going to access to any of the above elements, accept the terms of use and the use of cookies.",
+  "banner_accept_button": "Accept",
   "bg_chooser_label": "Background",
   "bg_luftbild": "Aerial imagery",
   "bg_pixel_color": "Color map",

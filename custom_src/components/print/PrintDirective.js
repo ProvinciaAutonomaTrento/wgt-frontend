@@ -601,6 +601,7 @@ goog.require('ga_time_service');
                     }
                     if (mapfish_version == 3) {
                         enc.matrices = matrices;
+                        enc.imageFormat = 'image/' + (config.format || 'png');
                     }
                     //+++END+++
 
@@ -1406,7 +1407,13 @@ goog.require('ga_time_service');
         };
 
         var getDpi = function (layoutName, dpiConfig) {
-            if (/a4/i.test(layoutName) && dpiConfig.length > 1) {
+            // (20220206) In case the dpiConfig is not defined, use a default setting, which currently correspond to the
+            // dpiConfig[1] used for existing A4 prints: 120
+            if (!dpiConfig || !dpiConfig.length) {
+                return 120;
+            }
+
+            if ((/a4/i.test(layoutName) || /a3/i.test(layoutName)) && dpiConfig.length > 1) {
                 return dpiConfig[1].value;
             } else {
                 return dpiConfig[0].value;

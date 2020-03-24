@@ -101,7 +101,7 @@ goog.require('ga_styles_service');
             source: vectorSource,
             extent: gaMapUtils.intersectWithDefaultExtent(vectorSource.getExtent()),
             attribution: undefined,
-            style: gaStyleFactory.getStyle('kml')
+            style: gaStyleFactory.getStyle('shp')
           };
 
           // Be sure to remove all html tags
