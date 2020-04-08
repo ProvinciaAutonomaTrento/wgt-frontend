@@ -33,7 +33,7 @@ gulp.task('copy-bower-css', function () {
 
 gulp.task('copy-bower-fonts', function () {
     return gulp.src([
-        'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
+        'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'
     ])
         .pipe(gulp.dest('src/main/webapp/resources/vendor/fonts'));
 });

@@ -1959,6 +1959,10 @@ goog.require('ga_urlutils_service');
                 this.getLayerTimestampFromYear = function (configOrBodId, yearStr) {
                     var layer = angular.isString(configOrBodId) ?
                         this.getLayer(configOrBodId) : configOrBodId;
+                    if (layer === undefined) {
+                        return undefined;
+                    }
+
                     var timestamps = layer.timestamps || [];
                     if (angular.isNumber(yearStr)) {
                         yearStr = '' + yearStr;
