@@ -15,20 +15,17 @@ softwareType: standalone/web
 platforms:
   - web
 usedBy:
-  - questa versione customizzata: Provincia autonoma di Trento 
-  - progetto padre: Geoportal Svizzera: https://map.geo.admin.ch/
-  - altri progetti:
-    - National :
-       - Norwegian Institute of Bioecomic Research : Geoportal forest of Norway: http://kartbeta.skogoglandskap.no/kilden
-       - Geoportal Luxembourg is a clone of first version: http://map.geoportail.lu/
-    - Regional :
-       - Geoportal Bayern : https://geoportal.bayern.de/bayernatlas/
-       - Geoportal Jura-Bernois https://map.geojb.ch
-       - Geoportal Trento https://webgis.provincia.tn.it/wgt/
-       - Geoportal Piemont http://www.geoportale.piemonte.it/geocatalogorp/?sezione=mappa
-       - Geoportal of Thurgau https://map.geo.tg.ch/
-       - Environmental Portal of Niedersachsen https://numis.niedersachsen.de/kartendienste
- categories:
+  - Provincia autonoma di Trento 
+  - Geoportal Svizzera
+  - Norwegian Institute of Bioecomic Research (Geoportal forest of Norway)
+  - Geoportal Luxembourg is a clone of first version
+  - Geoportal Bayern
+  - Geoportal Jura-Bernois
+  - Geoportal Trento
+  - Geoportal Piemont
+  - Geoportal of Thurgau
+  - Environmental Portal of Niedersachsen 
+categories:
   - webgis
 maintenance:
   type: internal
