@@ -388,5 +388,7 @@
     "shpimport_tooltip": "Importare dati SHP esterni",
     "file_is_not_shp": "Questo file non è un file SHP",
     "import_shp": "Importare SHP",
-    "print_error": "Si è verificato un errore durante la creazione del file PDF."
+    "print_error": "Si è verificato un errore durante la creazione del file PDF.",
+
+    "survey_summary": "Riepilogo sondaggi"
 }

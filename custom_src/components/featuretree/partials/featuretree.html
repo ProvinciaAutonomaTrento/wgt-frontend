@@ -1,0 +1,36 @@
+<ul>
+  <li ng-repeat="layer in tree">
+    <div style="width: 100%" class="ga-feature-label"
+         title="{{ layer.hasMoreResults ? 'query_alert_more_than_200_results' : '' | translate }}">
+      <label ng-click="layer.open = !layer.open" style="width: unset">
+<!--        class="ga-truncate-text"-->
+        <i ng-class="{'icon-minus': layer.open, 'icon-plus': !layer.open}"></i>
+        <span ng-bind-html="layer.label"></span>
+      </label>
+      <a ng-if="layer.type === 'Sondaggi'" href="#" target="_blank" role="link" style="color: #069; text-decoration: underline; float: right; margin-right: 0.8em; cursor: pointer">
+        {{'survey_summary' | translate}}
+      </a>
+    </div>
+
+    <ul ng-if="layer.open" class="ga-feature">
+      <li ng-repeat="feature in layer.features track by $index"
+          ng-keydown="onKeyDown($event, feature)"
+          ng-focus="onFocus($event, feature)"
+          ng-mousedown="onMouseDown($event, feature)"
+          ng-mouseenter="highlight(feature)"
+          ng-mouseleave="clearHighlight()"
+          ng-click="onClick($event, feature)"
+          ng-class="{'selected': isFeatureSelected(feature)}" 
+          tabindex=1>
+        <label class="ga-truncate-text">
+          {{feature.label}}
+        </label>
+        <i ng-if="feature.geometry" ng-click="zoom($event, feature)" class="icon-zoom-in"></i>
+      </li>
+      <li ng-if="layer.hasMoreResults">
+        <button class="btn btn-default" ng-click="more($event, layer)" translate>show_more_results</button>
+      </li>
+    </ul>
+  </li>
+</ul>
+

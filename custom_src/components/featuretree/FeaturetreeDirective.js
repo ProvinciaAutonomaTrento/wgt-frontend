@@ -133,6 +133,7 @@ goog.require('ga_map_service');
              * The tree represent a list of features grouped by layer
              */
             var updateTree = function(tree) {
+              console.log('tree', tree);
               gaPreviewFeatures.clearHighlight();
               gaPreviewFeatures.clear(map);
               var newTree = {};
@@ -150,6 +151,7 @@ goog.require('ga_map_service');
                 );
                 var newNode = {
                   label: label,
+                  type: gaLayers.getLayer(layerBodId).label,
                   hasMoreResults: layerNode.hasMoreResults,
                   offset: layerNode.offset,
                   open: oldNode ? oldNode.open : true,
