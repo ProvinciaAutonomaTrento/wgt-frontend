@@ -23,5 +23,5 @@
     "default_epsg_extend": [581423, 5046000, 811876, 5228180],
     "href_logo": "http://www.provincia.tn.it/",
     "copyright_href": "https://webgis.provincia.tn.it/wgt/help/?id=81",
-    "url_base_sondaggi": "http://localhost:4200"
+    "url_base_sondaggi": "/sondaggi"
 }
