@@ -17,7 +17,7 @@ goog.require('ga_map_service');
 
   module.directive('gaFeaturetree',
       function($rootScope, $timeout, $http, $q, $translate, $sce, gaLayers,
-          gaPreviewFeatures) {
+          gaPreviewFeatures, gaGlobalOptions) {
         var canceler = null;
         var timeoutPromise = null;
         var parser = new ol.format.GeoJSON();
@@ -150,15 +150,23 @@ goog.require('ga_map_service');
                 );
                 var newNode = {
                   label: label,
+                  type: gaLayers.getLayer(layerBodId).label,
                   hasMoreResults: layerNode.hasMoreResults,
                   offset: layerNode.offset,
                   open: oldNode ? oldNode.open : true,
-                  features: []
+                  features: [],
+                  link: ''
                 };
                 newTree[layerBodId] = newNode;
 
+                var listIdsSondaggi = '';
                 for (var i = 0, ii = layerNode.features.length; i < ii; i++) {
                   var feature = layerNode.features[i];
+                  if(listIdsSondaggi === ''){
+                    listIdsSondaggi = feature.properties.id_sondaggio
+                  } else {
+                    listIdsSondaggi = listIdsSondaggi + ',' + feature.properties.id_sondaggio;
+                  }
                   //look if feature exists already. We do this
                   //to avoid loading the same feature again and
                   //to preserve state (selected)
@@ -186,6 +194,9 @@ goog.require('ga_map_service');
                     drawFeature(feature);
                   }
                 }
+                // link for 'Riepilogo sondaggi'
+                newNode.link = gaGlobalOptions.url_base_sondaggi + '/sondaggi?ids=' + listIdsSondaggi;
+
               });
               scope.tree = newTree;
               scope.$emit('gaUpdateFeatureTree', scope.tree);
