@@ -383,7 +383,7 @@
     "gpximport_tooltip": "Importare dati GPX esterni",
     "file_is_not_gpx": "Questo file non è un file GPX",
     "import_gpx": "Importare GPX",
-    "load_shp": "Caricare SHP",
+    "load_shp": "Caricare SHP (formato ZIP)",
     "max_file_dimension": "Dimensione massima del file: 8MB",
     "shpimport_tooltip": "Importare dati SHP esterni",
     "file_is_not_shp": "Questo file non è un file SHP",
