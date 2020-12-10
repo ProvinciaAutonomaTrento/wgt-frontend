@@ -631,7 +631,7 @@ manifest="geoadmin.appcache"
       -->
       <script src="lib/angular-translate-loader-static-files.js"></script>
       <script src="lib/Cesium/Cesium.js"></script>
-      <script src="lib/d3-3.3.1.js"></script>
+      <script charset="utf-8" src="lib/d3-3.3.1.js"></script>
       <script src="lib/typeahead-0.9.3.js"></script>
       <script src="lib/proj4js-compressed.js"></script>
       <script src="lib/EPSG21781.js"></script>
@@ -751,6 +751,7 @@ manifest="geoadmin.appcache"
           defaultElevationModel: '${default_elevation_model}',
           defaultTerrain: '${default_terrain}',
           languages: JSON.parse('${languages}'),
+          url_base_sondaggi: '${url_base_sondaggi}',
 
           mousePositionProjections: [{
             value: '${default_epsg}',

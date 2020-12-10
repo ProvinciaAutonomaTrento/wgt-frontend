@@ -164,7 +164,7 @@
     "graticule": "Griglia di coordinate",
     "gray": "grigio",
     "green": "verde",
-    "help_label": "Aiuto",
+    "help_label": "Info/Novità",
     "help_search_data": "Sotto 'Ricerca', un campo di testo vi permette di ricercare delle parole chiave (ad esempio 'paludi', 'strada', 'comune', ecc.) all’interno delle descrizioni dei dati geografici disponibili. Una volta selezionato un layer tra i risultati proposti, questo viene visualizzato sulla mappa.",
     "help_search_data_link": "Cercate altre mappe?",
     "help_search_data_title": "Ricerca di mappe",
@@ -383,10 +383,12 @@
     "gpximport_tooltip": "Importare dati GPX esterni",
     "file_is_not_gpx": "Questo file non è un file GPX",
     "import_gpx": "Importare GPX",
-    "load_shp": "Caricare SHP",
+    "load_shp": "Caricare SHP (formato ZIP)",
     "max_file_dimension": "Dimensione massima del file: 8MB",
     "shpimport_tooltip": "Importare dati SHP esterni",
     "file_is_not_shp": "Questo file non è un file SHP",
     "import_shp": "Importare SHP",
-    "print_error": "Si è verificato un errore durante la creazione del file PDF."
+    "print_error": "Si è verificato un errore durante la creazione del file PDF.",
+
+    "survey_summary": "Riepilogo sondaggi"
 }

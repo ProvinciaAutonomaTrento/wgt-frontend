@@ -692,7 +692,17 @@ goog.require('ga_time_service');
                                 case "LineString":
                                     type = "line";
                                     break;
+                                case "MultiLineString":
+                                    type = "line";
+                                    break;
                                 case "Point":
+                                    if (feature.getProperties().type == "annotation") {
+                                        type = "text";
+                                    } else {
+                                        type = "point";
+                                    }
+                                    break;
+                                case "MultiPoint":
                                     if (feature.getProperties().type == "annotation") {
                                         type = "text";
                                     } else {
