@@ -1745,6 +1745,7 @@ goog.require('ga_urlutils_service');
                                     proxied: proxied_url
                                 };
                                 options.urls[0] = proxied_url;
+                                options.format ='image/' + (layer.format || 'png');
                                 olSource = layer.olSource = new ol.source.WMTS(options);
                                 olSource.setProperties({'capabilities_obj': layer_capabilities});
                             }
@@ -1958,6 +1959,10 @@ goog.require('ga_urlutils_service');
                 this.getLayerTimestampFromYear = function (configOrBodId, yearStr) {
                     var layer = angular.isString(configOrBodId) ?
                         this.getLayer(configOrBodId) : configOrBodId;
+                    if (layer === undefined) {
+                        return undefined;
+                    }
+
                     var timestamps = layer.timestamps || [];
                     if (angular.isNumber(yearStr)) {
                         yearStr = '' + yearStr;

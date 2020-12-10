@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
+environment=$1
 
 npm install
 npm run bower-install
-npm run gulp-prod
+
+if [ "$environment" == "DEV" ]; then
+    echo "Compiling for the $environment"
+    npm run gulp-dev
+elif [ "$environment" == "PROD" ]; then
+    echo "Compiling for the $environment"
+    npm run gulp-prod
+else
+    echo "Compiling for the PROD"
+    npm run gulp-prod
+fi;
+
+
+

@@ -12,7 +12,8 @@ gulp.task('copy-bower-js', function () {
         'bower_components/angular/angular.js',
         'bower_components/angular-translate/angular-translate.js',
         'bower_components/bootstrap/dist/js/bootstrap.js',
-        'bower_components/angular-bootstrap/ui-bootstrap-tpls.js'
+        'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+        'bower_components/angular-cookies/angular-cookies.js'
     ])
         .pipe(concat("lib.min.js"))
         .pipe(uglify())
@@ -32,13 +33,14 @@ gulp.task('copy-bower-css', function () {
 
 gulp.task('copy-bower-fonts', function () {
     return gulp.src([
-        'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
+        'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'
     ])
         .pipe(gulp.dest('src/main/webapp/resources/vendor/fonts'));
 });
 
 gulp.task('inject-to-index', function () {
-    var target = gulp.src('origin_src/index.html');
+    var target = gulp.src('custom_src/index.html');
+    // var target = gulp.src('origin_src/index.html');
     var sources = gulp.src(['src/main/webapp/resources/**/*.js', 'src/main/webapp/resources/**/*.css'], {
         read: false
     });

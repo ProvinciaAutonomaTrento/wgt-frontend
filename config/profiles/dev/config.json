@@ -22,5 +22,6 @@
     "default_epsg_label": "UTM ETRF 2000 (m)",
     "default_epsg_extend": [581423, 5046000, 811876, 5228180],
     "href_logo": "http://www.provincia.tn.it/",
-    "copyright_href": "http://www.territorio.provincia.tn.it/portal/server.pt/community/s_i_a_t/255/licenza_d'uso/255620"
+    "copyright_href": "https://webgis.provincia.tn.it/wgt/help/?id=81",
+    "url_base_sondaggi": "/sondaggi"
 }

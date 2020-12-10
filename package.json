@@ -1,6 +1,6 @@
 {
   "name": "wgt-frontend",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "WGT - Web GIS Trasversale",
   "private": true,
   "scripts": {
@@ -10,7 +10,7 @@
     "gulp-connect": "gulp connect"
   },
   "dependencies": {
-    "bootstrap": "3.1.1",
+    "bootstrap": "3.4.1",
     "bower": "^1.8.0",
     "del": "2.2.0",
     "gulp": "3.9.1",
