@@ -7,15 +7,14 @@ name: WGT-frontend
 applicationSuite: WGT
 url: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend.git'
 landingURL: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend'
-logo: screenshots/wgt_logo.png ??DA FARE??
-releaseDate: '2020-01-10'
+releaseDate: '2021-03-18'
 developmentStatus: stable
-softwareVersion: 3.2.16 ??DA INDICARE VERSIONE ESATTA??
+softwareVersion: 1.2.2
 softwareType: standalone/web
 platforms:
   - web
 usedBy:
-  - Provincia autonoma di Trento 
+  - Provincia autonoma di Trento
   - Geoportal Svizzera
   - Norwegian Institute of Bioecomic Research (Geoportal forest of Norway)
   - Geoportal Luxembourg is a clone of first version
@@ -24,9 +23,9 @@ usedBy:
   - Geoportal Trento
   - Geoportal Piemont
   - Geoportal of Thurgau
-  - Environmental Portal of Niedersachsen 
+  - Environmental Portal of Niedersachsen
 categories:
-  - webgis
+  - geographic-information-systems
 maintenance:
   type: internal
   contacts:
@@ -35,7 +34,7 @@ maintenance:
       phone: +39 0461800111
       affiliation: Società in-house della Provincia autonoma di Trento
 legal:
-  license: 3-Clause BSD License
+  license: BSD-3-Clause
   mainCopyrightOwner: Provincia Autonoma di Trento
   repoOwner: Provincia Autonoma di Trento
 intendedAudience:
@@ -62,16 +61,10 @@ description:
   it:
     localisedName: WGT-frontend
     genericName: WGT
-    documentation: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend/README.md'
-    
-    apiDocumentation: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend/README.md'
-    
+    documentation: 'https://github.com/ProvinciaAutonomaTrento/wgt-frontend/blob/master/README.md'
     shortDescription: WebGIS Trasversale
-    
     longDescription: >
-    
-     Il WebGIS Trasversale della Provincia autonoma di Trento si occupa della pubblicazione dei livelli informativi geografici della Provincia offrendo una serie di funzionalità base tipiche di un webGIS ed user-friendly rivolte soprattutto al cittadino e ai liberi professionisti.
-     Il sistema è predisposto per l'autenticazione SPID nel caso ci fosse la necessità di pubblicare informazioni riservate. Il sistema è suddiviso nelle seguenti macro-componenti: il database con i dati e le configurazioni, i servizi REST di backend, 	 il server di mappa che eroga servizi WMS/WMTS, il motore di ricerca e il frontend il cui codice nello specifico viene rilasciato.
-           
+      Il WebGIS Trasversale della Provincia autonoma di Trento si occupa della pubblicazione dei livelli informativi geografici della Provincia offrendo una serie di funzionalità base tipiche di un webGIS ed user-friendly rivolte soprattutto al cittadino e ai liberi professionisti.
+      Il sistema è predisposto per l'autenticazione SPID nel caso ci fosse la necessità di pubblicare informazioni riservate. Il sistema è suddiviso nelle seguenti macro-componenti: il database con i dati e le configurazioni, i servizi REST di backend, 	 il server di mappa che eroga servizi WMS/WMTS, il motore di ricerca e il frontend il cui codice nello specifico viene rilasciato.
     features:
       - WebGIS
