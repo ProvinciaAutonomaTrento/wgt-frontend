@@ -1,5 +1,6 @@
 goog.provide('ga_map_directive');
 
+goog.require('ga_marker_overlay_service');
 goog.require('ga_browsersniffer_service');
 goog.require('ga_debounce_service');
 goog.require('ga_offline_service');
@@ -8,6 +9,7 @@ goog.require('ga_styles_service');
 (function () {
 
     var module = angular.module('ga_map_directive', [
+        'ga_marker_overlay_service',
         'ga_browsersniffer_service',
         'ga_debounce_service',
         'ga_offline_service',
@@ -42,7 +44,7 @@ goog.require('ga_styles_service');
 
     module.directive('gaMap', function ($window, $rootScope, $timeout, gaPermalink,
                                         gaStyleFactory, gaBrowserSniffer, gaLayers, gaDebounce, gaOffline,
-                                        gaMapUtils, gaGlobalOptions) {
+                                        gaMapUtils, gaGlobalOptions, gaMarkerOverlay) {
         return {
             restrict: 'A',
             scope: {
@@ -68,6 +70,12 @@ goog.require('ga_styles_service');
                              */
                         }
                         view.setCenter(position);
+
+                        // 20230116 Adding marker overlay in case the X, Y coordinates are set and also the flag 'showMapPointer' is active
+                        if (typeof(queryParams.showMapPointer) == "string" && queryParams.showMapPointer.trim().toLowerCase() == "true") {
+                            var extent = "BOX(" + northing + " " + easting + "," + northing + " " + easting + ")";
+                            gaMarkerOverlay.add(map, position, extent, true);
+                        }
                     }
                 }
                 if (queryParams.zoom !== undefined && isFinite(queryParams.zoom)) {

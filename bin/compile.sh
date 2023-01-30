@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 environment=$1
 
+source ~/.nvm/nvm.sh
+nvm use 8.11.1
+
 npm install
 npm run bower-install
 
