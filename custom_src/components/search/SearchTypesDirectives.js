@@ -850,12 +850,12 @@ goog.require('ga_urlutils_service');
                             var l = gaMapUtils.getMapOverlayForBodId($scope.map, res.attrs.layers[i]);
                             if (!angular.isDefined(l)) {
                                 var olLayer = gaLayers.getOlLayerById(res.attrs.layers[i]);
-                                olLayer.label = res.attrs.speciesCommonName;
+                                olLayer.label = res.attrs.speciesCommonName + " (" + olLayer.label + ")";
                                 $scope.map.addLayer(olLayer);
                             } else {
                                 // Assure layer is visible
                                 l.visible = true;
-                                l.label = res.attrs.speciesCommonName;
+                                l.label = res.attrs.speciesCommonName + " (" + l.label + ")";
                             }
                             $scope.options.valueSelected(gaSearchLabels.cleanLabel(res.attrs.label));
                         }

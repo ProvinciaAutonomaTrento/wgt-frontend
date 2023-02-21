@@ -81,7 +81,7 @@ goog.provide('ga_banner_service');
                             deferred.resolve(response.data.content);
                         },
                         function (error) {
-                            console.error("[Banner] Error arisen invoking the banner server-side" + str(error));
+                            console.error("[Banner] Error arisen invoking the banner server-side " + error);
                             deferred.reject();
                         });
 

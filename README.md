@@ -24,7 +24,7 @@ The `origin_src` folder contains the fork of `mf-geoadmin3`, while modified file
 The build process made with `gulp` generates the `src` folder, which contains the final code to deploy.
 
 ## Requirements
-- [npm](https://www.npmjs.com/)
+- [npm](https://www.npmjs.com/), (since 2020-07-22 using `nvm 8.11.1` with `npm 5.6.0`)
 - [bower](https://bower.io/)
 - [gulp](http://gulpjs.com/)
 
